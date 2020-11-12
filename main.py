@@ -62,8 +62,8 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
                     print("device connected")
                     self.mySerial.seriport.a = 1
                 else:
-                    self.mySerial.seriport.close()
                     print("device unconnected")
+                    self.mySerial.seriport.close()
 
 
     def stopButton(self):
