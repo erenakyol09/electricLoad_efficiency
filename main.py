@@ -73,7 +73,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.mySerial.z = 0
         self.mySerial.i = 0
         print(self.mySerial.seriport.a, self.mySerial.z, self.mySerial.i)
-        #print("device unconnected")
+        print("device stop")
 
     def sendData(self):
         if self.mySerial.seriport.a == 1:

@@ -48,6 +48,8 @@ class serialThreadClass(QThread):
 
             self.buffer[self.z] = veri
 
+            #cycle
+
             # DC CURRENT
             self.mesaj1.emit(str(self.buffer[self.i]))
             # DC VOLTAGE
