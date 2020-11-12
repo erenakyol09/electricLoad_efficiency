@@ -26,7 +26,6 @@ class serialThreadClass(QThread):
         with open("buffer.txt", "w") as file:
             file.write("")
 
-        self.dizi   = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
         self.buffer = np.array([0, 0, 0, 0, 0, 0, 0,0])
 
 
@@ -65,12 +64,7 @@ class serialThreadClass(QThread):
             if self.i == 7:
                 self.i = 0
             else:
-                self.i = self.i +1
-
-
-
-
-
+                self.i = self.i + 1
 
 
 

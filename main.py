@@ -62,13 +62,13 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
                     print("device connected")
                     self.mySerial.seriport.a = 1
                 else:
+                    self.mySerial.seriport.close()
                     print("device unconnected")
+
 
     def stopButton(self):
         self.mySerial.seriport.a = 0
-        self.mySerial.seriport.close()
-        print("device unconnected")
-
+        #print("device unconnected")
 
     def sendData(self):
         if self.mySerial.seriport.a == 1:
@@ -76,28 +76,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
             self.mySerial.seriport.write(Tx_data.encode())
             print("sended")
         else:
-            print("device unconnected")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            self.mySerial.seriport.close()
 
 
 
