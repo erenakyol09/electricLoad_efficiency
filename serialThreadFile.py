@@ -32,12 +32,13 @@ class serialThreadClass(QThread):
 
     def run(self):
 
-        #first cycle
+        self.z = 0
+        self.i = 0
 
+        #first cycle
         for self.k in range(0, 8):
             data = int(self.seriport.readline().decode('ascii'))
             self.firstCycle[self.k] = data
-            print(self.firstCycle[self.k])
             if self.firstCycle[self.k] == int(7):
                 break
 
