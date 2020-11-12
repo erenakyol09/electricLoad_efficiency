@@ -26,15 +26,14 @@ class serialThreadClass(QThread):
         self.k = 0
         self.z = 0
 
-        self.buffer     = np.array([0, 0, 0, 0, 0, 0, 0, 0])
+        self.buffer     = np.array([0, 0, 0, 0, 0, 0, 0, 7])
         self.firstCycle = np.array([0, 0, 0, 0, 0, 0, 0, 0])
-
+        self.control    = np.array([0, 1, 2, 3, 4, 5, 6, 7])
+        self.control2   = np.array([0, 1, 2, 3, 4, 5, 6, 7])
 
     def run(self):
 
         self.z = 0
-        self.i = 0
-
         #first cycle
         for self.k in range(0, 8):
             data = int(self.seriport.readline().decode('ascii'))
@@ -48,27 +47,32 @@ class serialThreadClass(QThread):
 
             self.buffer[self.z] = veri
 
-            #cycle
-
             # DC CURRENT
-            self.mesaj1.emit(str(self.buffer[self.i]))
+            self.mesaj1.emit(str(self.buffer[self.control[0]]))
             # DC VOLTAGE
-            self.mesaj2.emit(str(self.buffer[self.i + 1]))
+            self.mesaj2.emit(str(self.buffer[self.control[1]]))
             # AC CURRENT
-            self.mesaj3.emit(str(self.buffer[self.i + 2]))
+            self.mesaj3.emit(str(self.buffer[self.control[2]]))
             # AC VOLTAGE
-            self.mesaj4.emit(str(self.buffer[self.i + 3]))
+            self.mesaj4.emit(str(self.buffer[self.control[3]]))
             # DC CURRENT
-            self.mesaj5.emit(str(self.buffer[self.i + 4]))
+            self.mesaj5.emit(str(self.buffer[self.control[4]]))
             # DC VOLTAGE
-            self.mesaj6.emit(str(self.buffer[self.i + 5]))
+            self.mesaj6.emit(str(self.buffer[self.control[5]]))
             # NTC
-            self.mesaj7.emit(str(self.buffer[self.i + 6]))
+            self.mesaj7.emit(str(self.buffer[self.control[6]]))
 
             if self.z == 7:
                 self.z = 0
             else:
                 self.z = self.z + 1
+
+            if self.buffer[self.control[7]] != np.int32(7):
+                while True:
+                    self.control2[self.i] = int(self.seriport.readline().decode('ascii'))
+                    if self.control2[self.i]  == np.int32(6):
+                        break
+
 
             self.mesaj.emit(str(veri))
 

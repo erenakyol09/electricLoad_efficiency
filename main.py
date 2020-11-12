@@ -2,6 +2,7 @@ import sys
 import serial.tools.list_ports
 from PyQt5.QtWidgets import QApplication, QDialog
 import electronic_load_last_python
+import numpy as np
 
 from serialThreadFile import serialThreadClass
 
@@ -71,9 +72,8 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         print(self.mySerial.seriport.a, self.mySerial.z, self.mySerial.i)
         self.mySerial.seriport.a = 0
         self.mySerial.z = 0
-        self.mySerial.i = 0
-        print(self.mySerial.seriport.a, self.mySerial.z, self.mySerial.i)
-        print("device stop")
+        self.mySerial.control = np.array([0, 1, 2, 3, 4, 5, 6, 7])
+        #print("device unconnected")
 
     def sendData(self):
         if self.mySerial.seriport.a == 1:
