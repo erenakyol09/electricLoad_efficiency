@@ -31,42 +31,43 @@ class serialThreadClass(QThread):
 
 
     def run(self):
-        
+
+        #first cycle
+
+        for self.k in range(0, 8):
+            data = int(self.seriport.readline().decode('ascii'))
+            self.firstCycle[self.k] = data
+            print(self.firstCycle[self.k])
+            if self.firstCycle[self.k] == int(7):
+                break
+
         while self.seriport.a == 1:
-            # first cycle
-            for self.k in range(0, 8):
-                data = int(self.seriport.readline().decode('ascii'))
-                self.firstCycle[self.k] = data
-                print(self.firstCycle[self.k])
-                if self.firstCycle[self.k] == int(7):
-                    break
 
-            while True:
-                veri = int(self.seriport.readline().decode('ascii'))
+            veri = int(self.seriport.readline().decode('ascii'))
 
-                self.buffer[self.z] = veri
+            self.buffer[self.z] = veri
 
-                # DC CURRENT
-                self.mesaj1.emit(str(self.buffer[self.i]))
-                # DC VOLTAGE
-                self.mesaj2.emit(str(self.buffer[self.i + 1]))
-                # AC CURRENT
-                self.mesaj3.emit(str(self.buffer[self.i + 2]))
-                # AC VOLTAGE
-                self.mesaj4.emit(str(self.buffer[self.i + 3]))
-                # DC CURRENT
-                self.mesaj5.emit(str(self.buffer[self.i + 4]))
-                # DC VOLTAGE
-                self.mesaj6.emit(str(self.buffer[self.i + 5]))
-                # NTC
-                self.mesaj7.emit(str(self.buffer[self.i + 6]))
+            # DC CURRENT
+            self.mesaj1.emit(str(self.buffer[self.i]))
+            # DC VOLTAGE
+            self.mesaj2.emit(str(self.buffer[self.i + 1]))
+            # AC CURRENT
+            self.mesaj3.emit(str(self.buffer[self.i + 2]))
+            # AC VOLTAGE
+            self.mesaj4.emit(str(self.buffer[self.i + 3]))
+            # DC CURRENT
+            self.mesaj5.emit(str(self.buffer[self.i + 4]))
+            # DC VOLTAGE
+            self.mesaj6.emit(str(self.buffer[self.i + 5]))
+            # NTC
+            self.mesaj7.emit(str(self.buffer[self.i + 6]))
 
-                if self.z == 7:
-                    self.z = 0
-                else:
-                    self.z = self.z + 1
+            if self.z == 7:
+                self.z = 0
+            else:
+                self.z = self.z + 1
 
-                self.mesaj.emit(str(veri))
+            self.mesaj.emit(str(veri))
 
 
 
