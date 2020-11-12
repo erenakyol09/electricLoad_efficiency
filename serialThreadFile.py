@@ -34,7 +34,7 @@ class serialThreadClass(QThread):
     def run(self):
 
         self.z = 0
-        #first cycle
+        # first cycle
         for self.k in range(0, 8):
             data = int(self.seriport.readline().decode('ascii'))
             self.firstCycle[self.k] = data
@@ -47,20 +47,21 @@ class serialThreadClass(QThread):
 
             self.buffer[self.z] = veri
 
+
             # DC CURRENT
-            self.mesaj1.emit(str(self.buffer[self.control[0]]))
+            self.mesaj1.emit(str(self.buffer[self.control[5]]))
             # DC VOLTAGE
-            self.mesaj2.emit(str(self.buffer[self.control[1]]))
+            self.mesaj2.emit(str(self.buffer[self.control[6]]))
             # AC CURRENT
-            self.mesaj3.emit(str(self.buffer[self.control[2]]))
+            self.mesaj3.emit(str(self.buffer[self.control[0]]))
             # AC VOLTAGE
-            self.mesaj4.emit(str(self.buffer[self.control[3]]))
+            self.mesaj4.emit(str(self.buffer[self.control[1]]))
             # DC CURRENT
-            self.mesaj5.emit(str(self.buffer[self.control[4]]))
+            self.mesaj5.emit(str(self.buffer[self.control[2]]))
             # DC VOLTAGE
-            self.mesaj6.emit(str(self.buffer[self.control[5]]))
+            self.mesaj6.emit(str(self.buffer[self.control[3]]))
             # NTC
-            self.mesaj7.emit(str(self.buffer[self.control[6]]))
+            self.mesaj7.emit(str(self.buffer[self.control[4]]))
 
             if self.z == 7:
                 self.z = 0
@@ -70,14 +71,7 @@ class serialThreadClass(QThread):
             if self.buffer[self.control[7]] != np.int32(7):
                 while True:
                     self.control2[self.i] = int(self.seriport.readline().decode('ascii'))
-                    if self.control2[self.i]  == np.int32(6):
+                    if self.control2[self.i] == np.int32(6):
                         break
 
-
             self.mesaj.emit(str(veri))
-
-
-
-
-
-
