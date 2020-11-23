@@ -2,13 +2,14 @@ import sys
 import serial.tools.list_ports
 from PyQt5.QtWidgets import QApplication, QDialog
 import electronic_load_last_python
-import numpy as np
+
 
 from serialThreadFile import serialThreadClass
-
-
+import time
+import numpy as np
 
 ports = serial.tools.list_ports.comports()
+
 
 BAUDRATES = [
     1200,
@@ -31,6 +32,9 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.pushButton.clicked.connect(self.startButton)
         self.pushButton_2.clicked.connect(self.stopButton)
         self.pushButton_3.clicked.connect(self.sendData)
+        self.pushButton_4.clicked.connect(self.sendCommand)
+        self.pushButton_5.clicked.connect(self.sendMode)
+        self.pushButton_6.clicked.connect(self.sendElvalue)
         self.mySerial = serialThreadClass()
         self.mySerial.mesaj.connect(self.textBrowser.append)
         self.mySerial.mesaj1.connect(self.textBrowser_2.append)
@@ -41,6 +45,8 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.mySerial.mesaj6.connect(self.textBrowser_7.append)
         self.mySerial.mesaj7.connect(self.textBrowser_8.append)
 
+        self.crc = 0
+        self.dizi = []
 
     def startButton(self):
 
@@ -62,26 +68,96 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
                     self.mySerial.start()
                     print("device connected")
                     self.mySerial.seriport.a = 1
+                    break
                 else:
                     print("device unconnected")
                     self.mySerial.seriport.close()
+            break
 
 
     def stopButton(self):
 
-        print(self.mySerial.seriport.a, self.mySerial.z, self.mySerial.i)
         self.mySerial.seriport.a = 0
-        self.mySerial.z = 0
-        self.mySerial.control = np.array([0, 1, 2, 3, 4, 5, 6, 7])
-        #print("device unconnected")
+        print("device unconnected")
 
     def sendData(self):
+
         if self.mySerial.seriport.a == 1:
             Tx_data = self.lineEdit.text()
+            print(Tx_data.encode())
+            time.sleep(1 / 100)
             self.mySerial.seriport.write(Tx_data.encode())
             print("sended")
-        else:
-            self.mySerial.seriport.close()
+
+
+    def sendCommand(self):
+
+        text3 = str(self.comboBox_3.currentText())
+
+        if self.mySerial.seriport.a == 1:
+            if text3 == 'A':
+                self.mySerial.seriport.write(text3.encode())
+            elif text3 == 'B':
+                self.mySerial.seriport.write(text3.encode())
+            else:
+                self.mySerial.seriport.write(text3.encode())
+
+    def sendMode(self):
+
+        text4 = str(self.comboBox_4.currentText())
+
+        if self.mySerial.seriport.a == 1:
+            if text4 == "Constant Current":
+                self.mySerial.seriport.write('I'.encode())
+            elif text4 == "Constant Voltage":
+                self.mySerial.seriport.write('V'.encode())
+            elif text4 == "Constant Power":
+                self.mySerial.seriport.write('P'.encode())
+            else:
+                self.mySerial.seriport.write('R'.encode())
+
+    def sendElvalue(self):
+
+        text5 = self.lineEdit_2.text()
+
+        #for ele in text5:
+        #    self.dizi.extend(hex(ord(num)) for num in ele)
+        self.dizi = text5
+        length = len(self.dizi)
+
+        for i in range(length):
+            a = ord(self.dizi[i])
+            self.crc = self.crc + a
+
+        crc_str = str(self.crc)
+
+        self.dizi = str(length) + self.dizi + crc_str[0] + crc_str[1]
+
+        print(crc_str)
+        print(self.dizi)
+
+        if self.mySerial.seriport.a == 1:
+            for i in range(int(length + 1 + 2)):  # + 1 length - +2 crc low 2 byte
+                self.mySerial.seriport.write(self.dizi[i].encode())
+                time.sleep(1 / 100)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
