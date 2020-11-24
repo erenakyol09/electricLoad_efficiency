@@ -8,9 +8,6 @@ from serialThreadFile import serialThreadClass
 import time
 import numpy as np
 
-ports = serial.tools.list_ports.comports()
-
-
 BAUDRATES = [
     1200,
     #            "1800",
@@ -23,6 +20,8 @@ BAUDRATES = [
     115200,
 ]
 
+# Find Live Ports
+ports = list(serial.tools.list_ports.comports())
 
 class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
 
@@ -45,6 +44,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.mySerial.mesaj6.connect(self.textBrowser_7.append)
         self.mySerial.mesaj7.connect(self.textBrowser_8.append)
 
+        self.crc_str = "";
         self.crc = 0
         self.dizi = []
 
@@ -58,6 +58,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         print(" ")
         print(text2)
         print(" ")
+        print(ports)
         for p in ports:
             print(p.device)
             for i in BAUDRATES:
@@ -123,11 +124,21 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         #for ele in text5:
         #    self.dizi.extend(hex(ord(num)) for num in ele)
         self.dizi = text5
-        length = len(self.dizi)
+        length = len(text5)
 
         for i in range(length):
             a = ord(self.dizi[i])
             self.crc = self.crc + a
+
+        #dec to hex
+        a = self.crc
+        b = a
+        a = a / 16
+        a = int(a)
+        b = b - (a * 16)
+        a = a * 10
+        a = a + b
+        self.crc = a
 
         crc_str = str(self.crc)
 
@@ -141,9 +152,9 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
                 self.mySerial.seriport.write(self.dizi[i].encode())
                 time.sleep(1 / 100)
 
-
-
-
+        self.crc_str = "";
+        self.crc = 0;
+        self.dizi = "";
 
 
 
