@@ -2,8 +2,6 @@ import sys
 import serial.tools.list_ports
 from PyQt5.QtWidgets import QApplication, QDialog
 import electronic_load_last_python
-
-
 from serialThreadFile import serialThreadClass
 import time
 import numpy as np
@@ -120,54 +118,32 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
     def sendElvalue(self):
 
         text5 = self.lineEdit_2.text()
-
+        print(text5)
+        print(type(text5))
         #for ele in text5:
         #    self.dizi.extend(hex(ord(num)) for num in ele)
-        self.dizi = text5
+        self.dizi = text5.encode()
         length = len(text5)
 
         for i in range(length):
-            a = ord(self.dizi[i])
-            self.crc = self.crc + a
+            self.crc = self.crc + self.dizi[i]
 
-        #dec to hex
-        a = self.crc
-        b = a
-        a = a / 16
-        a = int(a)
-        b = b - (a * 16)
-        a = a * 10
-        a = a + b
-        self.crc = a
-
-        crc_str = str(self.crc)
-
-        self.dizi = str(length) + self.dizi + crc_str[0] + crc_str[1]
-
+        crc_str = hex(self.crc)
         print(crc_str)
+        crc_lentgh = len(crc_str)
+        print(crc_lentgh)
+
+        self.dizi = str(length) + self.dizi.decode() + crc_str[crc_lentgh-2] + crc_str[crc_lentgh-1]
         print(self.dizi)
 
         if self.mySerial.seriport.a == 1:
             for i in range(int(length + 1 + 2)):  # + 1 length - +2 crc low 2 byte
                 self.mySerial.seriport.write(self.dizi[i].encode())
-                time.sleep(1 / 100)
+                time.sleep(1 / 1000)
 
         self.crc_str = "";
         self.crc = 0;
         self.dizi = "";
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
