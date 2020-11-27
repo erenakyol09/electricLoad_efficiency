@@ -81,19 +81,20 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
 
     def sendData(self):
 
+        Tx_data = self.lineEdit.text()
+        print(Tx_data.encode())
+        time.sleep(1 / 100)
+
         if self.mySerial.seriport.a == 1:
-            Tx_data = self.lineEdit.text()
-            print(Tx_data.encode())
-            time.sleep(1 / 100)
             self.mySerial.seriport.write(Tx_data.encode())
             print("sended")
 
 
     def sendCommand(self):
-
-        text3 = str(self.comboBox_3.currentText())
-
         if self.mySerial.seriport.a == 1:
+
+            text3 = str(self.comboBox_3.currentText())
+
             if text3 == 'A':
                 self.mySerial.seriport.write(text3.encode())
             elif text3 == 'B':
@@ -101,11 +102,12 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
             else:
                 self.mySerial.seriport.write(text3.encode())
 
+
+
     def sendMode(self):
-
-        text4 = str(self.comboBox_4.currentText())
-
         if self.mySerial.seriport.a == 1:
+            text4 = str(self.comboBox_4.currentText())
+
             if text4 == "Constant Current":
                 self.mySerial.seriport.write('I'.encode())
             elif text4 == "Constant Voltage":
@@ -114,6 +116,9 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
                 self.mySerial.seriport.write('P'.encode())
             else:
                 self.mySerial.seriport.write('R'.encode())
+
+
+
 
     def sendElvalue(self):
 
@@ -133,11 +138,22 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         crc_lentgh = len(crc_str)
         print(crc_lentgh)
 
-        self.dizi = str(length) + self.dizi.decode() + crc_str[crc_lentgh-2] + crc_str[crc_lentgh-1]
+        if crc_str[crc_lentgh - 3] == 'x':
+            self.dizi = str(length) + self.dizi.decode() + '0' + '0'
+            self.dizi = self.dizi + crc_str[crc_lentgh - 2] + crc_str[crc_lentgh - 1]
+
+        if crc_str[crc_lentgh - 4] == 'x':
+            self.dizi = str(length) + self.dizi.decode() + '0' + crc_str[crc_lentgh - 3]
+            self.dizi = self.dizi + crc_str[crc_lentgh - 2] + crc_str[crc_lentgh - 1]
+
+        if crc_str[crc_lentgh - 5] == 'x':
+            self.dizi = str(length) + self.dizi.decode() + crc_str[crc_lentgh - 4] + crc_str[crc_lentgh - 3]
+            self.dizi = self.dizi + crc_str[crc_lentgh - 2] + crc_str[crc_lentgh - 1]
+
         print(self.dizi)
 
         if self.mySerial.seriport.a == 1:
-            for i in range(int(length + 1 + 2)):  # + 1 length - +2 crc low 2 byte
+            for i in range(int(length + 1 + 4)):  # + 1 length - +2 crc low 2 byte
                 self.mySerial.seriport.write(self.dizi[i].encode())
                 time.sleep(1 / 1000)
 
