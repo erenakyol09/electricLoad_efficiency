@@ -28,6 +28,7 @@ class serialThreadClass(QThread):
 
         while self.seriport.a == 1:
             self.veri = self.seriport.readline().decode('ascii')
+            print(self.veri)
             time.sleep(1/100)
             self.mesaj.emit(str(self.veri))
 

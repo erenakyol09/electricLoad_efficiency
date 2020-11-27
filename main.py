@@ -45,6 +45,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.crc_str = "";
         self.crc = 0
         self.dizi = []
+        self.str_length = ""
 
     def startButton(self):
 
@@ -130,6 +131,11 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.dizi = text5.encode()
         length = len(text5)
 
+        if length < 10:
+            self.str_length = '0' + str(length)
+        if length >= 10:
+            self.str_length = str(length)
+
         for i in range(length):
             self.crc = self.crc + self.dizi[i]
 
@@ -139,21 +145,21 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         print(crc_lentgh)
 
         if crc_str[crc_lentgh - 3] == 'x':
-            self.dizi = str(length) + self.dizi.decode() + '0' + '0'
+            self.dizi = self.str_length + self.dizi.decode() + '0' + '0'
             self.dizi = self.dizi + crc_str[crc_lentgh - 2] + crc_str[crc_lentgh - 1]
 
         if crc_str[crc_lentgh - 4] == 'x':
-            self.dizi = str(length) + self.dizi.decode() + '0' + crc_str[crc_lentgh - 3]
+            self.dizi = self.str_length + self.dizi.decode() + '0' + crc_str[crc_lentgh - 3]
             self.dizi = self.dizi + crc_str[crc_lentgh - 2] + crc_str[crc_lentgh - 1]
 
         if crc_str[crc_lentgh - 5] == 'x':
-            self.dizi = str(length) + self.dizi.decode() + crc_str[crc_lentgh - 4] + crc_str[crc_lentgh - 3]
+            self.dizi = self.str_length + self.dizi.decode() + crc_str[crc_lentgh - 4] + crc_str[crc_lentgh - 3]
             self.dizi = self.dizi + crc_str[crc_lentgh - 2] + crc_str[crc_lentgh - 1]
 
         print(self.dizi)
 
         if self.mySerial.seriport.a == 1:
-            for i in range(int(length + 1 + 4)):  # + 1 length - +2 crc low 2 byte
+            for i in range(int(length + 2 + 4)):  # + 2 length - +2 crc low 2 byte
                 self.mySerial.seriport.write(self.dizi[i].encode())
                 time.sleep(1 / 1000)
 
