@@ -32,6 +32,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.pushButton_4.clicked.connect(self.sendCommand)
         self.pushButton_5.clicked.connect(self.sendMode)
         self.pushButton_6.clicked.connect(self.sendElvalue)
+        self.pushButton_11.clicked.connect(self.sendC_stop)
         self.mySerial = serialThreadClass()
         self.mySerial.mesaj.connect(self.textBrowser.append)
         self.mySerial.mesaj1.connect(self.textBrowser_2.append)
@@ -118,8 +119,9 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
             else:
                 self.mySerial.seriport.write('R'.encode())
 
-
-
+    def sendC_stop(self):
+        self.mySerial.seriport.write('S'.encode())
+        print("STOP PUSHED")
 
     def sendElvalue(self):
 
