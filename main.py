@@ -128,8 +128,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         text5 = self.lineEdit_2.text()
         print(text5)
         print(type(text5))
-        #for ele in text5:
-        #    self.dizi.extend(hex(ord(num)) for num in ele)
+
         self.dizi = text5.encode()
         length = len(text5)
 
