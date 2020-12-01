@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QApplication, QDialog
 import electronic_load_last_python
 from serialThreadFile import serialThreadClass
 import time
-import numpy as np
+
 
 BAUDRATES = [
     1200,
@@ -34,14 +34,20 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.pushButton_6.clicked.connect(self.sendElvalue)
         self.pushButton_11.clicked.connect(self.sendC_stop)
         self.mySerial = serialThreadClass()
+
         self.mySerial.mesaj.connect(self.textBrowser.append)
-        self.mySerial.mesaj1.connect(self.textBrowser_2.append)
-        self.mySerial.mesaj2.connect(self.textBrowser_3.append)
-        self.mySerial.mesaj3.connect(self.textBrowser_4.append)
-        self.mySerial.mesaj4.connect(self.textBrowser_5.append)
-        self.mySerial.mesaj5.connect(self.textBrowser_6.append)
-        self.mySerial.mesaj6.connect(self.textBrowser_7.append)
-        self.mySerial.mesaj7.connect(self.textBrowser_8.append)
+        self.mySerial.mesaj1.connect(self.textBrowser_14.append) # el - power
+        self.mySerial.mesaj2.connect(self.textBrowser_13.append) # el - voltage
+        self.mySerial.mesaj3.connect(self.textBrowser_12.append) # el - current
+        self.mySerial.mesaj4.connect(self.textBrowser_15.append) # el - resistance
+
+        self.mySerial.mesaj5.connect(self.textBrowser_4.append)
+        self.mySerial.mesaj6.connect(self.textBrowser_5.append)
+        self.mySerial.mesaj7.connect(self.textBrowser_6.append)
+        self.mySerial.mesaj8.connect(self.textBrowser_7.append)
+        self.mySerial.mesaj9.connect(self.textBrowser_8.append)
+        self.mySerial.mesaj10.connect(self.textBrowser_2.append)
+        self.mySerial.mesaj11.connect(self.textBrowser_3.append)
 
         self.crc_str = "";
         self.crc = 0
