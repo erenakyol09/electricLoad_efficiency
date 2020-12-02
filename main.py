@@ -33,7 +33,9 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.pushButton_5.clicked.connect(self.sendMode)
         self.pushButton_6.clicked.connect(self.sendElvalue)
         self.pushButton_11.clicked.connect(self.sendC_stop)
+        self.pushButton_12.clicked.connect(self.refresh_history)
         self.mySerial = serialThreadClass()
+
 
         self.mySerial.mesaj.connect(self.textBrowser.append)
         self.mySerial.mesaj1.connect(self.textBrowser_14.append) # el - power
@@ -48,6 +50,8 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.mySerial.mesaj9.connect(self.textBrowser_8.append)
         self.mySerial.mesaj10.connect(self.textBrowser_2.append)
         self.mySerial.mesaj11.connect(self.textBrowser_3.append)
+
+        self.mySerial.mesaj12.connect(self.textBrowser_9.append)
 
         self.crc_str = "";
         self.crc = 0
@@ -133,7 +137,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
 
         text5 = self.lineEdit_2.text()
         print(text5)
-        print(type(text5))
+        print(len(text5))
 
         self.dizi = text5.encode()
         length = len(text5)
@@ -149,7 +153,6 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         crc_str = hex(self.crc)
         print(crc_str)
         crc_lentgh = len(crc_str)
-        print(crc_lentgh)
 
         if crc_str[crc_lentgh - 3] == 'x':
             self.dizi = self.str_length + self.dizi.decode() + '0' + '0'
@@ -173,6 +176,24 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.crc_str = "";
         self.crc = 0;
         self.dizi = "";
+
+    def refresh_history(self):
+        self.textBrowser_2.clear()
+        self.textBrowser_3.clear()
+        self.textBrowser_4.clear()
+        self.textBrowser_5.clear()
+        self.textBrowser_6.clear()
+        self.textBrowser_7.clear()
+        self.textBrowser_8.clear()
+        self.textBrowser_9.clear()
+        self.textBrowser_12.clear()
+        self.textBrowser_13.clear()
+        self.textBrowser_14.clear()
+        self.textBrowser_15.clear()
+
+
+
+
 
 
 
