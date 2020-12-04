@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from pyqtgraph import PlotWidget
 
 class Ui_ELECTRONICLOAD(object):
     def setupUi(self, ELECTRONICLOAD):
@@ -309,10 +310,6 @@ class Ui_ELECTRONICLOAD(object):
         self.graphicsView.setGeometry(QtCore.QRect(20, 240, 371, 281))
         self.graphicsView.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.graphicsView.setObjectName("graphicsView")
-        self.graphicsView_2 = PlotWidget(self.tab)
-        self.graphicsView_2.setGeometry(QtCore.QRect(410, 240, 371, 281))
-        self.graphicsView_2.setStyleSheet("background-color: rgb(255, 255, 255);")
-        self.graphicsView_2.setObjectName("graphicsView_2")
         self.label_9 = QtWidgets.QLabel(self.tab)
         self.label_9.setGeometry(QtCore.QRect(580, 170, 81, 41))
         font = QtGui.QFont()
@@ -329,6 +326,10 @@ class Ui_ELECTRONICLOAD(object):
         self.lcdNumber_2.setFont(font)
         self.lcdNumber_2.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.lcdNumber_2.setObjectName("lcdNumber_2")
+        self.graphicsView_2 = PlotWidget(self.tab)
+        self.graphicsView_2.setGeometry(QtCore.QRect(410, 240, 371, 281))
+        self.graphicsView_2.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.graphicsView_2.setObjectName("graphicsView_2")
         self.tab1_load.addTab(self.tab, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
@@ -519,4 +520,4 @@ class Ui_ELECTRONICLOAD(object):
         self.label_27.setText(_translate("ELECTRONICLOAD", "POWER"))
         self.lcdNumber_13.setToolTip(_translate("ELECTRONICLOAD", "<html><head/><body><p align=\"right\"><br/></p></body></html>"))
 
-from pyqtgraph import PlotWidget
+

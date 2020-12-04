@@ -1,6 +1,6 @@
 import serial
 from PyQt5.QtCore import pyqtSignal, QThread,QTimer,QTime,QDateTime
-
+import pyqtgraph as pg
 
 class serialThreadClass(QThread):
 
@@ -33,8 +33,11 @@ class serialThreadClass(QThread):
         self.seriport.timeout  = 1
         self.seriport.a        = 1
         self.seriport.run_data = 0
-        self.seriport.x = []
-        self.seriport.y = []
+        self.seriport.x  = []
+        self.seriport.y  = []
+        self.seriport.x2 = []
+        self.seriport.y2 = []
+        self.seriport.count = 0
 
         self.receiveCrc = 0
         self.crc        = ""
@@ -57,6 +60,8 @@ class serialThreadClass(QThread):
         self.packetA   = ""
 
 
+
+
     def run(self):
 
         while self.seriport.a == 1:
@@ -64,6 +69,8 @@ class serialThreadClass(QThread):
             displayText = dataTime.toString('dd.MM.yyyy-hh:mm:ss')
             self.lcd.emit(displayText)
             while self.seriport.in_waiting:
+
+                #pen = pg.mkPen(color=(255, 0, 0), width=15)
 
 
                 readHex = self.seriport.readline()
@@ -137,13 +144,20 @@ class serialThreadClass(QThread):
                     # checkSum control
                     if msg_Checksum == self.crc:
 
+                            self.seriport.count = self.seriport.count + 1
                             if self.veri[3] == 'P':
                                 for i in range(packet_size - 1):
                                     self.packetB_P = self.packetB_P + self.veri[i + 4]
 
                             self.mesaj1.emit(str(self.packetB_P))
 
-                            #if len(self.packetB_P) != 0:
+                            if len(self.packetB_P) != 0:
+                                if self.seriport.run_data == 1:
+                                    #self.seriport.x.append(self.seriport.count)
+                                    self.seriport.x.append(sn)
+                                    self.seriport.y.append(float(self.packetB_P))
+                                    self.graph1.emit(self.seriport.x, self.seriport.y)
+
 
                             self.packetB_P = ""
 
@@ -152,16 +166,12 @@ class serialThreadClass(QThread):
                                     self.packetB_V = self.packetB_V + self.veri[i + 4]
                             self.mesaj2.emit(str(self.packetB_V))
 
-
                             if len(self.packetB_V) != 0:
-
-                                self.seriport.x.append(sn)
-                                self.seriport.y.append(float(self.packetB_V))
                                 if self.seriport.run_data == 1:
-                                    self.graph2.emit(self.seriport.x ,self.seriport.y)
-
-
-
+                                    #self.seriport.x2.append(self.seriport.count)
+                                    self.seriport.x2.append(sn)
+                                    self.seriport.y2.append(float(self.packetB_V))
+                                    self.graph2.emit(self.seriport.x2 ,self.seriport.y2)
 
                             self.packetB_V = ""
 

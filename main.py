@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QApplication, QDialog
 import electronic_load_last_python
 from serialThreadFile import serialThreadClass
 import time
-
+import pyqtgraph as pg
 
 
 BAUDRATES = [
@@ -63,9 +63,18 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.dizi = []
         self.str_length = ""
 
+        self.graphicsView.setBackground('w')
+        styles = {'color': 'r', 'font-size': '20px'}
+        self.graphicsView.setLabel('left', 'Power (P)', **styles)
+        self.graphicsView.setLabel('bottom', 'Time (S)', **styles)
+        self.graphicsView.setTitle("Power-Time", color="b", size="10pt")
         self.mySerial.graph1.connect(self.graphicsView.plotItem.plot)
 
         self.graphicsView_2.setBackground('w')
+        styles = {'color': 'r', 'font-size': '20px'}
+        self.graphicsView_2.setLabel('left', 'Voltage (V)', **styles)
+        self.graphicsView_2.setLabel('bottom', 'Time (S)', **styles)
+        self.graphicsView_2.setTitle("Voltage-Time", color="b", size="10pt")
         self.mySerial.graph2.connect(self.graphicsView_2.plotItem.plot)
 
 
@@ -194,7 +203,11 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
     def refresh_history(self):
         self.mySerial.seriport.x = []
         self.mySerial.seriport.y = []
+        self.mySerial.seriport.x2 = []
+        self.mySerial.seriport.y2 = []
+        self.graphicsView.plotItem.clear()
         self.graphicsView_2.plotItem.clear()
+        self.mySerial.seriport.count = 0
         """"
         self.textBrowser_2.clear()
         self.textBrowser_3.clear()
