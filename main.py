@@ -6,6 +6,7 @@ from serialThreadFile import serialThreadClass
 import time
 
 
+
 BAUDRATES = [
     1200,
     #            "1800",
@@ -32,31 +33,44 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.pushButton_4.clicked.connect(self.sendCommand)
         self.pushButton_5.clicked.connect(self.sendMode)
         self.pushButton_6.clicked.connect(self.sendElvalue)
+        self.pushButton_10.clicked.connect(self.draw_graphics)
         self.pushButton_11.clicked.connect(self.sendC_stop)
         self.pushButton_12.clicked.connect(self.refresh_history)
         self.mySerial = serialThreadClass()
 
 
+        self.mySerial.mesaj1.connect(self.lcdNumber_13.display) # el - power
+        self.mySerial.mesaj2.connect(self.lcdNumber_10.display) # el - voltage
+        self.mySerial.mesaj3.connect(self.lcdNumber_11.display) # el - current
+        self.mySerial.mesaj4.connect(self.lcdNumber_12.display) # el - resistance
+
+        self.mySerial.mesaj5.connect(self.lcdNumber_3.display)
+        self.mySerial.mesaj6.connect(self.lcdNumber_4.display)
+        self.mySerial.mesaj7.connect(self.lcdNumber_5.display)
+        self.mySerial.mesaj8.connect(self.lcdNumber_6.display)
+        self.mySerial.mesaj9.connect(self.lcdNumber_7.display)
+        self.mySerial.mesaj10.connect(self.lcdNumber_8.display)
+        self.mySerial.mesaj11.connect(self.lcdNumber_9.display)
+
         self.mySerial.mesaj.connect(self.textBrowser.append)
-        self.mySerial.mesaj1.connect(self.textBrowser_14.append) # el - power
-        self.mySerial.mesaj2.connect(self.textBrowser_13.append) # el - voltage
-        self.mySerial.mesaj3.connect(self.textBrowser_12.append) # el - current
-        self.mySerial.mesaj4.connect(self.textBrowser_15.append) # el - resistance
+        self.mySerial.mesaj12.connect(self.textBrowser_2.append)
 
-        self.mySerial.mesaj5.connect(self.textBrowser_4.append)
-        self.mySerial.mesaj6.connect(self.textBrowser_5.append)
-        self.mySerial.mesaj7.connect(self.textBrowser_6.append)
-        self.mySerial.mesaj8.connect(self.textBrowser_7.append)
-        self.mySerial.mesaj9.connect(self.textBrowser_8.append)
-        self.mySerial.mesaj10.connect(self.textBrowser_2.append)
-        self.mySerial.mesaj11.connect(self.textBrowser_3.append)
-
-        self.mySerial.mesaj12.connect(self.textBrowser_9.append)
+        self.mySerial.lcd.connect(self.lcdNumber.display)
+        self.mySerial.lcd2.connect(self.lcdNumber_2.display)
 
         self.crc_str = "";
         self.crc = 0
         self.dizi = []
         self.str_length = ""
+
+        self.mySerial.graph1.connect(self.graphicsView.plotItem.plot)
+
+        self.graphicsView_2.setBackground('w')
+        self.mySerial.graph2.connect(self.graphicsView_2.plotItem.plot)
+
+
+    def draw_graphics(self):
+        self.mySerial.seriport.run_data = 1
 
     def startButton(self):
 
@@ -87,7 +101,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
 
 
     def stopButton(self):
-
+        self.mySerial.seriport.run_data = 0
         self.mySerial.seriport.a = 0
         print("device unconnected")
 
@@ -178,6 +192,10 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.dizi = "";
 
     def refresh_history(self):
+        self.mySerial.seriport.x = []
+        self.mySerial.seriport.y = []
+        self.graphicsView_2.plotItem.clear()
+        """"
         self.textBrowser_2.clear()
         self.textBrowser_3.clear()
         self.textBrowser_4.clear()
@@ -190,7 +208,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.textBrowser_13.clear()
         self.textBrowser_14.clear()
         self.textBrowser_15.clear()
-
+        """
 
 
 
