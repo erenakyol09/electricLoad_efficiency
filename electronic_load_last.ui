@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1179</width>
+    <width>1201</width>
     <height>916</height>
    </rect>
   </property>
@@ -1001,194 +1001,147 @@ p, li { white-space: pre-wrap; }
     <number>21</number>
    </property>
   </widget>
-  <widget class="QLCDNumber" name="lcdNumber_3">
+  <widget class="QTextBrowser" name="textBrowser_3">
    <property name="geometry">
     <rect>
      <x>940</x>
      <y>410</y>
-     <width>221</width>
+     <width>241</width>
      <height>41</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
-   <property name="digitCount">
-    <number>7</number>
-   </property>
   </widget>
-  <widget class="QLCDNumber" name="lcdNumber_4">
+  <widget class="QTextBrowser" name="textBrowser_4">
    <property name="geometry">
     <rect>
      <x>940</x>
      <y>450</y>
-     <width>221</width>
+     <width>241</width>
      <height>41</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
-   <property name="digitCount">
-    <number>7</number>
-   </property>
   </widget>
-  <widget class="QLCDNumber" name="lcdNumber_5">
+  <widget class="QTextBrowser" name="textBrowser_5">
    <property name="geometry">
     <rect>
      <x>940</x>
      <y>490</y>
-     <width>221</width>
+     <width>241</width>
      <height>41</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
-   <property name="digitCount">
-    <number>7</number>
-   </property>
   </widget>
-  <widget class="QLCDNumber" name="lcdNumber_6">
+  <widget class="QTextBrowser" name="textBrowser_6">
    <property name="geometry">
     <rect>
      <x>940</x>
      <y>530</y>
-     <width>221</width>
+     <width>241</width>
      <height>41</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
-   <property name="digitCount">
-    <number>7</number>
-   </property>
   </widget>
-  <widget class="QLCDNumber" name="lcdNumber_7">
+  <widget class="QTextBrowser" name="textBrowser_7">
    <property name="geometry">
     <rect>
      <x>940</x>
      <y>570</y>
-     <width>221</width>
+     <width>241</width>
      <height>41</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
-   <property name="digitCount">
-    <number>7</number>
-   </property>
   </widget>
-  <widget class="QLCDNumber" name="lcdNumber_8">
+  <widget class="QTextBrowser" name="textBrowser_8">
    <property name="geometry">
     <rect>
      <x>940</x>
      <y>610</y>
-     <width>221</width>
+     <width>241</width>
      <height>41</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
-   <property name="digitCount">
-    <number>7</number>
-   </property>
   </widget>
-  <widget class="QLCDNumber" name="lcdNumber_9">
+  <widget class="QTextBrowser" name="textBrowser_9">
    <property name="geometry">
     <rect>
      <x>940</x>
      <y>650</y>
-     <width>221</width>
+     <width>241</width>
      <height>41</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
-   <property name="smallDecimalPoint">
-    <bool>false</bool>
-   </property>
-   <property name="digitCount">
-    <number>7</number>
-   </property>
   </widget>
-  <widget class="QLCDNumber" name="lcdNumber_10">
+  <widget class="QTextBrowser" name="textBrowser_10">
    <property name="geometry">
     <rect>
      <x>940</x>
      <y>730</y>
-     <width>221</width>
+     <width>241</width>
      <height>41</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
-   <property name="digitCount">
-    <number>7</number>
-   </property>
   </widget>
-  <widget class="QLCDNumber" name="lcdNumber_11">
+  <widget class="QTextBrowser" name="textBrowser_11">
    <property name="geometry">
     <rect>
      <x>940</x>
      <y>770</y>
-     <width>221</width>
+     <width>241</width>
      <height>41</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
-   <property name="digitCount">
-    <number>7</number>
-   </property>
   </widget>
-  <widget class="QLCDNumber" name="lcdNumber_12">
+  <widget class="QTextBrowser" name="textBrowser_12">
    <property name="geometry">
     <rect>
      <x>940</x>
      <y>810</y>
-     <width>221</width>
+     <width>241</width>
      <height>41</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
-   <property name="digitCount">
-    <number>7</number>
-   </property>
   </widget>
-  <widget class="QLCDNumber" name="lcdNumber_13">
+  <widget class="QTextBrowser" name="textBrowser_13">
    <property name="geometry">
     <rect>
      <x>940</x>
      <y>850</y>
-     <width>221</width>
+     <width>241</width>
      <height>41</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>6</pointsize>
-    </font>
-   </property>
-   <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-   <property name="layoutDirection">
-    <enum>Qt::RightToLeft</enum>
-   </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);</string>
-   </property>
-   <property name="digitCount">
-    <number>7</number>
    </property>
   </widget>
   <zorder>tab1_load</zorder>
@@ -1212,17 +1165,17 @@ p, li { white-space: pre-wrap; }
   <zorder>label_19</zorder>
   <zorder>label_27</zorder>
   <zorder>lcdNumber</zorder>
-  <zorder>lcdNumber_3</zorder>
-  <zorder>lcdNumber_4</zorder>
-  <zorder>lcdNumber_5</zorder>
-  <zorder>lcdNumber_6</zorder>
-  <zorder>lcdNumber_7</zorder>
-  <zorder>lcdNumber_8</zorder>
-  <zorder>lcdNumber_9</zorder>
-  <zorder>lcdNumber_10</zorder>
-  <zorder>lcdNumber_11</zorder>
-  <zorder>lcdNumber_12</zorder>
-  <zorder>lcdNumber_13</zorder>
+  <zorder>textBrowser_3</zorder>
+  <zorder>textBrowser_4</zorder>
+  <zorder>textBrowser_5</zorder>
+  <zorder>textBrowser_6</zorder>
+  <zorder>textBrowser_7</zorder>
+  <zorder>textBrowser_8</zorder>
+  <zorder>textBrowser_9</zorder>
+  <zorder>textBrowser_10</zorder>
+  <zorder>textBrowser_11</zorder>
+  <zorder>textBrowser_12</zorder>
+  <zorder>textBrowser_13</zorder>
  </widget>
  <customwidgets>
   <customwidget>

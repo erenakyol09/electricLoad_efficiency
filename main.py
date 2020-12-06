@@ -4,7 +4,6 @@ from PyQt5.QtWidgets import QApplication, QDialog
 import electronic_load_last_python
 from serialThreadFile import serialThreadClass
 import time
-import pyqtgraph as pg
 
 
 BAUDRATES = [
@@ -39,18 +38,18 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.mySerial = serialThreadClass()
 
 
-        self.mySerial.mesaj1.connect(self.lcdNumber_13.display) # el - power
-        self.mySerial.mesaj2.connect(self.lcdNumber_10.display) # el - voltage
-        self.mySerial.mesaj3.connect(self.lcdNumber_11.display) # el - current
-        self.mySerial.mesaj4.connect(self.lcdNumber_12.display) # el - resistance
+        self.mySerial.mesaj1.connect(self.textBrowser_10.append) # el - power
+        self.mySerial.mesaj2.connect(self.textBrowser_11.append) # el - voltage
+        self.mySerial.mesaj3.connect(self.textBrowser_12.append) # el - current
+        self.mySerial.mesaj4.connect(self.textBrowser_13.append) # el - resistance
 
-        self.mySerial.mesaj5.connect(self.lcdNumber_3.display)
-        self.mySerial.mesaj6.connect(self.lcdNumber_4.display)
-        self.mySerial.mesaj7.connect(self.lcdNumber_5.display)
-        self.mySerial.mesaj8.connect(self.lcdNumber_6.display)
-        self.mySerial.mesaj9.connect(self.lcdNumber_7.display)
-        self.mySerial.mesaj10.connect(self.lcdNumber_8.display)
-        self.mySerial.mesaj11.connect(self.lcdNumber_9.display)
+        self.mySerial.mesaj5.connect(self.textBrowser_3.append)
+        self.mySerial.mesaj6.connect(self.textBrowser_4.append)
+        self.mySerial.mesaj7.connect(self.textBrowser_5.append)
+        self.mySerial.mesaj8.connect(self.textBrowser_6.append)
+        self.mySerial.mesaj9.connect(self.textBrowser_7.append)
+        self.mySerial.mesaj10.connect(self.textBrowser_8.append)
+        self.mySerial.mesaj11.connect(self.textBrowser_9.append)
 
         self.mySerial.mesaj.connect(self.textBrowser.append)
         self.mySerial.mesaj12.connect(self.textBrowser_2.append)

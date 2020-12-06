@@ -1,6 +1,5 @@
 import serial
 from PyQt5.QtCore import pyqtSignal, QThread,QTimer,QTime,QDateTime
-import pyqtgraph as pg
 
 class serialThreadClass(QThread):
 
@@ -69,9 +68,6 @@ class serialThreadClass(QThread):
             displayText = dataTime.toString('dd.MM.yyyy-hh:mm:ss')
             self.lcd.emit(displayText)
             while self.seriport.in_waiting:
-
-                #pen = pg.mkPen(color=(255, 0, 0), width=15)
-
 
                 readHex = self.seriport.readline()
                 self.veri = readHex.decode()
@@ -156,6 +152,7 @@ class serialThreadClass(QThread):
                                     #self.seriport.x.append(self.seriport.count)
                                     self.seriport.x.append(sn)
                                     self.seriport.y.append(float(self.packetB_P))
+
                                     self.graph1.emit(self.seriport.x, self.seriport.y)
 
 
