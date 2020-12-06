@@ -200,16 +200,19 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
 
     def refresh_history(self):
 
-        self.mySerial.seriport.x = [0]
+
         self.mySerial.seriport.y = [0]
-        self.mySerial.seriport.x2 = [0]
         self.mySerial.seriport.y2 = [0]
+
+        self.mySerial.seriport.secP = [0]
+        self.mySerial.seriport.secV = [0]
+
+        self.mySerial.seriport.count = 0
+        self.mySerial.seriport.count2 = 0
 
         self.graphicsView.plotItem.clear()
         self.graphicsView_2.plotItem.clear()
-
-        self.mySerial.seriport.count = 0
-
+"""
         self.textBrowser_2.clear()
         self.textBrowser_3.clear()
         self.textBrowser_4.clear()
@@ -222,7 +225,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.textBrowser_11.clear()
         self.textBrowser_12.clear()
         self.textBrowser_13.clear()
-
+"""
 
 
 

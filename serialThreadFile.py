@@ -27,19 +27,26 @@ class serialThreadClass(QThread):
 
     def __init__(self, parent=None):
         super(serialThreadClass, self).__init__(parent)
+
         self.seriport = serial.Serial()
         self.seriport.baudrate = 1000
         self.seriport.port     = 'COM8'
         self.seriport.timeout  = 1
+
         self.seriport.a        = 1
         self.seriport.run_data = 0
-        self.seriport.x    = [0]
+
         self.seriport.y    = [0]
-        self.seriport.x2   = [0]
         self.seriport.y2   = [0]
+
         self.seriport.sec  = [0]
+        self.seriport.sec2 = [0]
+
         self.seriport.secP = [0]
+        self.seriport.secV = [0]
+
         self.seriport.count = 0
+        self.seriport.count2 = 0
 
         self.receiveCrc = 0
         self.crc        = ""
@@ -156,7 +163,8 @@ class serialThreadClass(QThread):
 
                                     if self.seriport.sec[1] != 0:
                                         self.seriport.count = self.seriport.sec[1] - self.seriport.sec[0]
-                                        self.seriport.secP.append(self.seriport.secP[0] + self.seriport.count)
+                                        if self.seriport.count <= 1:
+                                            self.seriport.secP.append(self.seriport.secP[0] + self.seriport.count)
                                     else:
                                         self.seriport.count = self.seriport.sec[0] - self.seriport.sec[1]
                                         self.seriport.secP.append(self.seriport.secP[0] + self.seriport.count)
@@ -170,8 +178,8 @@ class serialThreadClass(QThread):
                                     self.graph1.emit(self.seriport.secP, self.seriport.y)
                                     del self.seriport.y[0]
                                     del self.seriport.sec[0]
-                                    del self.seriport.secP[0]
-
+                                    if self.seriport.count <= 1 or self.seriport.count == 59:
+                                        del self.seriport.secP[0]
 
                             self.packetB_P = ""
 
@@ -181,13 +189,29 @@ class serialThreadClass(QThread):
                             self.mesaj2.emit(str(self.packetB_V))
 
                             if len(self.packetB_V) != 0:
+
                                 if self.seriport.run_data == 1:
-                                    #self.seriport.x2.append(self.seriport.count)
-                                    self.seriport.x2.append(sn)
+
+                                    self.seriport.sec2.append(sn)
+
+                                    if self.seriport.sec2[1] != 0:
+                                        self.seriport.count2 = self.seriport.sec2[1] - self.seriport.sec2[0]
+                                        if self.seriport.count2 <= 1:
+                                            self.seriport.secV.append(self.seriport.secV[0] + self.seriport.count2)
+                                    else:
+                                        self.seriport.count2 = self.seriport.sec2[0] - self.seriport.sec2[1]
+                                        self.seriport.secV.append(self.seriport.secV[0] + self.seriport.count2)
+                                        if self.seriport.count2 == 59:
+                                            self.seriport.secV.append(self.seriport.secV[0] + 1)
+                                            del self.seriport.secV[1]
+
                                     self.seriport.y2.append(float(self.packetB_V))
-                                    self.graph2.emit(self.seriport.x2 ,self.seriport.y2)
-                                    del self.seriport.x2[0]
+                                    self.graph2.emit(self.seriport.secV, self.seriport.y2)
                                     del self.seriport.y2[0]
+                                    del self.seriport.sec2[0]
+                                    if self.seriport.count2 <= 1 or self.seriport.count2 == 59:
+                                        del self.seriport.secV[0]
+
 
                             self.packetB_V = ""
 
