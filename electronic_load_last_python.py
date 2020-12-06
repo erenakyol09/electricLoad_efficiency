@@ -24,7 +24,7 @@ class Ui_ELECTRONICLOAD(object):
         self.pushButton_2.setStyleSheet("background-color: rgb(112, 181, 200);")
         self.pushButton_2.setObjectName("pushButton_2")
         self.formLayoutWidget = QtWidgets.QWidget(ELECTRONICLOAD)
-        self.formLayoutWidget.setGeometry(QtCore.QRect(850, 20, 163, 72))
+        self.formLayoutWidget.setGeometry(QtCore.QRect(850, 20, 165, 72))
         self.formLayoutWidget.setObjectName("formLayoutWidget")
         self.formLayout = QtWidgets.QFormLayout(self.formLayoutWidget)
         self.formLayout.setContentsMargins(0, 0, 0, 0)

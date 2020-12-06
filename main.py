@@ -5,7 +5,6 @@ import electronic_load_last_python
 from serialThreadFile import serialThreadClass
 import time
 
-
 BAUDRATES = [
     1200,
     #            "1800",
@@ -200,14 +199,17 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.dizi = "";
 
     def refresh_history(self):
-        self.mySerial.seriport.x = []
-        self.mySerial.seriport.y = []
-        self.mySerial.seriport.x2 = []
-        self.mySerial.seriport.y2 = []
+
+        self.mySerial.seriport.x = [0]
+        self.mySerial.seriport.y = [0]
+        self.mySerial.seriport.x2 = [0]
+        self.mySerial.seriport.y2 = [0]
+
         self.graphicsView.plotItem.clear()
         self.graphicsView_2.plotItem.clear()
+
         self.mySerial.seriport.count = 0
-        """"
+
         self.textBrowser_2.clear()
         self.textBrowser_3.clear()
         self.textBrowser_4.clear()
@@ -216,11 +218,12 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.textBrowser_7.clear()
         self.textBrowser_8.clear()
         self.textBrowser_9.clear()
+        self.textBrowser_10.clear()
+        self.textBrowser_11.clear()
         self.textBrowser_12.clear()
         self.textBrowser_13.clear()
-        self.textBrowser_14.clear()
-        self.textBrowser_15.clear()
-        """
+
+
 
 
 
