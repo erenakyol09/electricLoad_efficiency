@@ -61,19 +61,31 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.dizi = []
         self.str_length = ""
 
-        self.graphicsView.setBackground('w')
         styles = {'color': 'r', 'font-size': '20px'}
-        self.graphicsView.setLabel('left', 'Power (P)', **styles)
-        self.graphicsView.setLabel('bottom', 'Time (S)', **styles)
-        self.graphicsView.setTitle("Power-Time", color="r", size="15pt")
+
+        self.graphicsView.setBackground('w')
+        self.graphicsView.setLabel('left', 'Power (W)', **styles)
+        self.graphicsView.setLabel('bottom', 'Time (s)', **styles)
+        self.graphicsView.setTitle("Power-Time Graph", color="r", size="15pt")
         self.mySerial.graph1.connect(self.graphicsView.plotItem.plot)
 
         self.graphicsView_2.setBackground('w')
-        styles = {'color': 'r', 'font-size': '20px'}
         self.graphicsView_2.setLabel('left', 'Voltage (V)', **styles)
-        self.graphicsView_2.setLabel('bottom', 'Time (S)', **styles)
-        self.graphicsView_2.setTitle("Voltage-Time", color="r", size="15pt")
+        self.graphicsView_2.setLabel('bottom', 'Time (s)', **styles)
+        self.graphicsView_2.setTitle("Voltage-Time Graph", color="r", size="15pt")
         self.mySerial.graph2.connect(self.graphicsView_2.plotItem.plot)
+
+        self.graphicsView_3.setBackground('w')
+        self.graphicsView_3.setLabel('left', 'Current (I)', **styles)
+        self.graphicsView_3.setLabel('bottom', 'Time (s)', **styles)
+        self.graphicsView_3.setTitle("Current-Time Graph", color="r", size="15pt")
+        self.mySerial.graph3.connect(self.graphicsView_3.plotItem.plot)
+
+        self.graphicsView_4.setBackground('w')
+        self.graphicsView_4.setLabel('left', 'Resistor (Ω)', **styles)
+        self.graphicsView_4.setLabel('bottom', 'Time (s)', **styles)
+        self.graphicsView_4.setTitle("Resistor-Time Graph", color="r", size="15pt")
+        self.mySerial.graph4.connect(self.graphicsView_4.plotItem.plot)
 
 
     def draw_graphics(self):
@@ -202,17 +214,27 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
     def refresh_history(self):
 
 
-        self.mySerial.seriport.y = [0]
+        self.mySerial.seriport.y  = [0]
         self.mySerial.seriport.y2 = [0]
+        self.mySerial.seriport.y3 = [0]
+        self.mySerial.seriport.y4 = [0]
 
         self.mySerial.seriport.secP = [0]
         self.mySerial.seriport.secV = [0]
+        self.mySerial.seriport.secI = [0]
+        self.mySerial.seriport.secR = [0]
 
-        self.mySerial.seriport.count = 0
+        self.mySerial.seriport.count  = 0
         self.mySerial.seriport.count2 = 0
+        self.mySerial.seriport.count3 = 0
+        self.mySerial.seriport.count4 = 0
 
         self.graphicsView.plotItem.clear()
         self.graphicsView_2.plotItem.clear()
+        self.graphicsView_3.plotItem.clear()
+        self.graphicsView_4.plotItem.clear()
+
+        self.lcdNumber_2.display(str(0))
 
         self.textBrowser.clear()
         self.textBrowser_2.clear()
