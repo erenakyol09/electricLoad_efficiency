@@ -87,7 +87,6 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.graphicsView_4.setTitle("Resistor-Time Graph", color="r", size="15pt")
         self.mySerial.graph4.connect(self.graphicsView_4.plotItem.plot)
 
-        print("eren")
 
     def draw_graphics(self):
         if self.mySerial.seriport.a == 1:
