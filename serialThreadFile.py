@@ -174,8 +174,10 @@ class serialThreadClass(QThread):
 
                                     print(self.seriport.count)
                                     print(self.seriport.secP)
+                                    print(self.seriport.y)
                                     self.seriport.y.append(float(self.packetB_P))
                                     self.graph1.emit(self.seriport.secP, self.seriport.y)
+                                    self.lcd2.emit(str(self.seriport.secP[0]))
                                     del self.seriport.y[0]
                                     del self.seriport.sec[0]
                                     if self.seriport.count <= 1 or self.seriport.count == 59:
@@ -302,9 +304,6 @@ class serialThreadClass(QThread):
                                 self.packetC_I = self.packetC_I + self.veri[i + 4]
                         self.mesaj11.emit(str(self.packetC_I))
                         self.packetC_I = ""
-
-
-
 
 
 

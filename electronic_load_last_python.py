@@ -7,7 +7,6 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from pyqtgraph import PlotWidget
 
 class Ui_ELECTRONICLOAD(object):
     def setupUi(self, ELECTRONICLOAD):
@@ -307,11 +306,11 @@ class Ui_ELECTRONICLOAD(object):
         self.label_8.setAlignment(QtCore.Qt.AlignCenter)
         self.label_8.setObjectName("label_8")
         self.graphicsView = PlotWidget(self.tab)
-        self.graphicsView.setGeometry(QtCore.QRect(20, 240, 371, 281))
+        self.graphicsView.setGeometry(QtCore.QRect(20, 240, 761, 281))
         self.graphicsView.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.graphicsView.setObjectName("graphicsView")
         self.label_9 = QtWidgets.QLabel(self.tab)
-        self.label_9.setGeometry(QtCore.QRect(580, 170, 81, 41))
+        self.label_9.setGeometry(QtCore.QRect(590, 170, 81, 41))
         font = QtGui.QFont()
         font.setPointSize(16)
         font.setBold(True)
@@ -320,14 +319,18 @@ class Ui_ELECTRONICLOAD(object):
         self.label_9.setAlignment(QtCore.Qt.AlignCenter)
         self.label_9.setObjectName("label_9")
         self.lcdNumber_2 = QtWidgets.QLCDNumber(self.tab)
-        self.lcdNumber_2.setGeometry(QtCore.QRect(660, 160, 121, 61))
+        self.lcdNumber_2.setGeometry(QtCore.QRect(680, 160, 101, 61))
         font = QtGui.QFont()
         font.setPointSize(13)
         self.lcdNumber_2.setFont(font)
+        self.lcdNumber_2.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.lcdNumber_2.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.lcdNumber_2.setFrameShape(QtWidgets.QFrame.WinPanel)
+        self.lcdNumber_2.setSmallDecimalPoint(False)
+        self.lcdNumber_2.setDigitCount(3)
         self.lcdNumber_2.setObjectName("lcdNumber_2")
         self.graphicsView_2 = PlotWidget(self.tab)
-        self.graphicsView_2.setGeometry(QtCore.QRect(410, 240, 371, 281))
+        self.graphicsView_2.setGeometry(QtCore.QRect(20, 530, 761, 281))
         self.graphicsView_2.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.graphicsView_2.setObjectName("graphicsView_2")
         self.tab1_load.addTab(self.tab, "")
@@ -362,6 +365,8 @@ class Ui_ELECTRONICLOAD(object):
         font.setWeight(75)
         self.lcdNumber.setFont(font)
         self.lcdNumber.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.lcdNumber.setFrameShape(QtWidgets.QFrame.WinPanel)
+        self.lcdNumber.setFrameShadow(QtWidgets.QFrame.Raised)
         self.lcdNumber.setDigitCount(21)
         self.lcdNumber.setObjectName("lcdNumber")
         self.textBrowser_3 = QtWidgets.QTextBrowser(ELECTRONICLOAD)
@@ -503,4 +508,4 @@ class Ui_ELECTRONICLOAD(object):
         self.label_19.setText(_translate("ELECTRONICLOAD", "RESISTOR"))
         self.label_27.setText(_translate("ELECTRONICLOAD", "POWER"))
 
-
+from pyqtgraph import PlotWidget

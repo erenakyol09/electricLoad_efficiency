@@ -65,19 +65,20 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         styles = {'color': 'r', 'font-size': '20px'}
         self.graphicsView.setLabel('left', 'Power (P)', **styles)
         self.graphicsView.setLabel('bottom', 'Time (S)', **styles)
-        self.graphicsView.setTitle("Power-Time", color="b", size="10pt")
+        self.graphicsView.setTitle("Power-Time", color="r", size="15pt")
         self.mySerial.graph1.connect(self.graphicsView.plotItem.plot)
 
         self.graphicsView_2.setBackground('w')
         styles = {'color': 'r', 'font-size': '20px'}
         self.graphicsView_2.setLabel('left', 'Voltage (V)', **styles)
         self.graphicsView_2.setLabel('bottom', 'Time (S)', **styles)
-        self.graphicsView_2.setTitle("Voltage-Time", color="b", size="10pt")
+        self.graphicsView_2.setTitle("Voltage-Time", color="r", size="15pt")
         self.mySerial.graph2.connect(self.graphicsView_2.plotItem.plot)
 
 
     def draw_graphics(self):
         self.mySerial.seriport.run_data = 1
+        self.mySerial.seriport.a = 1
 
     def startButton(self):
 
@@ -108,7 +109,6 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
 
 
     def stopButton(self):
-        self.mySerial.seriport.run_data = 0
         self.mySerial.seriport.a = 0
         print("device unconnected")
 
@@ -152,6 +152,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
 
     def sendC_stop(self):
         self.mySerial.seriport.write('S'.encode())
+        self.mySerial.seriport.run_data = 0
         print("STOP PUSHED")
 
     def sendElvalue(self):
@@ -212,7 +213,8 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
 
         self.graphicsView.plotItem.clear()
         self.graphicsView_2.plotItem.clear()
-"""
+
+        self.textBrowser.clear()
         self.textBrowser_2.clear()
         self.textBrowser_3.clear()
         self.textBrowser_4.clear()
@@ -225,7 +227,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.textBrowser_11.clear()
         self.textBrowser_12.clear()
         self.textBrowser_13.clear()
-"""
+
 
 
 
