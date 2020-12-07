@@ -56,7 +56,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.mySerial.lcd.connect(self.lcdNumber.display)
         self.mySerial.lcd2.connect(self.lcdNumber_2.display)
 
-        self.crc_str = "";
+        self.crc_str = ""
         self.crc = 0
         self.dizi = []
         self.str_length = ""
@@ -207,9 +207,9 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
                 self.mySerial.seriport.write(self.dizi[i].encode())
                 time.sleep(1 / 1000)
 
-        self.crc_str = "";
-        self.crc = 0;
-        self.dizi = "";
+        self.crc_str = ""
+        self.crc = 0
+        self.dizi = ""
 
     def refresh_history(self):
 
@@ -250,12 +250,6 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.textBrowser_11.clear()
         self.textBrowser_12.clear()
         self.textBrowser_13.clear()
-
-
-
-
-
-
 
 
 
