@@ -89,8 +89,8 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
 
 
     def draw_graphics(self):
-        self.mySerial.seriport.run_data = 1
-        self.mySerial.seriport.a = 1
+        if self.mySerial.seriport.a == 1:
+            self.mySerial.seriport.run_data = 1
 
     def startButton(self):
 
@@ -213,6 +213,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
 
     def refresh_history(self):
 
+        self.mySerial.seriport.run_data = 0
 
         self.mySerial.seriport.y  = [0]
         self.mySerial.seriport.y2 = [0]
