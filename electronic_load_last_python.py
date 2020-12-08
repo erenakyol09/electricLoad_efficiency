@@ -7,13 +7,11 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from pyqtgraph import PlotWidget
-
 
 class Ui_ELECTRONICLOAD(object):
     def setupUi(self, ELECTRONICLOAD):
         ELECTRONICLOAD.setObjectName("ELECTRONICLOAD")
-        ELECTRONICLOAD.resize(1394, 916)
+        ELECTRONICLOAD.resize(1394, 935)
         ELECTRONICLOAD.setStyleSheet("background-color: rgb(0, 132, 193);")
         ELECTRONICLOAD.setSizeGripEnabled(True)
         self.pushButton = QtWidgets.QPushButton(ELECTRONICLOAD)
@@ -74,15 +72,15 @@ class Ui_ELECTRONICLOAD(object):
         self.label_2.setObjectName("label_2")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_2)
         self.textBrowser = QtWidgets.QTextBrowser(ELECTRONICLOAD)
-        self.textBrowser.setGeometry(QtCore.QRect(1070, 130, 301, 161))
+        self.textBrowser.setGeometry(QtCore.QRect(1070, 140, 301, 161))
         self.textBrowser.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.textBrowser.setObjectName("textBrowser")
         self.lineEdit = QtWidgets.QLineEdit(ELECTRONICLOAD)
-        self.lineEdit.setGeometry(QtCore.QRect(1070, 100, 221, 22))
+        self.lineEdit.setGeometry(QtCore.QRect(1070, 110, 221, 22))
         self.lineEdit.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.lineEdit.setObjectName("lineEdit")
         self.pushButton_3 = QtWidgets.QPushButton(ELECTRONICLOAD)
-        self.pushButton_3.setGeometry(QtCore.QRect(1300, 100, 71, 21))
+        self.pushButton_3.setGeometry(QtCore.QRect(1300, 110, 71, 21))
         self.pushButton_3.setStyleSheet("background-color: rgb(112, 181, 200);")
         self.pushButton_3.setObjectName("pushButton_3")
         self.label_15 = QtWidgets.QLabel(ELECTRONICLOAD)
@@ -423,6 +421,16 @@ class Ui_ELECTRONICLOAD(object):
         self.textBrowser_13.setGeometry(QtCore.QRect(1160, 850, 211, 41))
         self.textBrowser_13.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.textBrowser_13.setObjectName("textBrowser_13")
+        self.label_10 = QtWidgets.QLabel(ELECTRONICLOAD)
+        self.label_10.setGeometry(QtCore.QRect(1140, 80, 191, 16))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_10.setFont(font)
+        self.label_10.setText("")
+        self.label_10.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_10.setObjectName("label_10")
         self.tab1_load.raise_()
         self.pushButton.raise_()
         self.pushButton_2.raise_()
@@ -455,6 +463,7 @@ class Ui_ELECTRONICLOAD(object):
         self.textBrowser_11.raise_()
         self.textBrowser_12.raise_()
         self.textBrowser_13.raise_()
+        self.label_10.raise_()
 
         self.retranslateUi(ELECTRONICLOAD)
         self.tab1_load.setCurrentIndex(0)
@@ -518,4 +527,4 @@ class Ui_ELECTRONICLOAD(object):
         self.label_19.setText(_translate("ELECTRONICLOAD", "RESISTOR"))
         self.label_27.setText(_translate("ELECTRONICLOAD", "POWER"))
 
-
+from pyqtgraph import PlotWidget

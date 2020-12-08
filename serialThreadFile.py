@@ -19,6 +19,8 @@ class serialThreadClass(QThread):
     mesaj11 = pyqtSignal(str)
     mesaj12 = pyqtSignal(str)
 
+    label = pyqtSignal(str)
+
     graph1  = pyqtSignal(list,list)
     graph2  = pyqtSignal(list,list)
     graph3  = pyqtSignal(list,list)
@@ -39,10 +41,10 @@ class serialThreadClass(QThread):
         self.seriport.a        = 1
         self.seriport.run_data = 0
 
-        self.seriport.y    = [0]
-        self.seriport.y2   = [0]
-        self.seriport.y3   = [0]
-        self.seriport.y4   = [0]
+        self.y  = [0]
+        self.y2 = [0]
+        self.y3 = [0]
+        self.y4 = [0]
 
         self.seriport.sec  = [0]
         self.seriport.sec2 = [0]
@@ -55,9 +57,6 @@ class serialThreadClass(QThread):
         self.seriport.secR = [0]
 
         self.seriport.count  = 0
-        self.seriport.count2 = 0
-        self.seriport.count3 = 0
-        self.seriport.count4 = 0
 
         self.receiveCrc = 0
         self.crc        = ""
@@ -83,6 +82,8 @@ class serialThreadClass(QThread):
 
 
     def run(self):
+
+        self.label.emit("DEVICE CONNECTED")
 
         while self.seriport.a == 1:
             dataTime = QDateTime.currentDateTime()
@@ -183,13 +184,10 @@ class serialThreadClass(QThread):
                                             self.seriport.secP.append(self.seriport.secP[0] + 1)
                                             del self.seriport.secP[1]
 
-                                    print(self.seriport.count)
-                                    print(self.seriport.secP)
-                                    print(self.seriport.y)
-                                    self.seriport.y.append(float(self.packetB_P))
-                                    self.graph1.emit(self.seriport.secP, self.seriport.y)
+                                    self.y.append(float(self.packetB_P))
+                                    self.graph1.emit(self.seriport.secP, self.y)
                                     self.lcd2.emit(str(self.seriport.secP[0]))
-                                    del self.seriport.y[0]
+                                    del self.y[0]
                                     del self.seriport.sec[0]
                                     if self.seriport.count <= 1 or self.seriport.count == 59:
                                         del self.seriport.secP[0]
@@ -208,21 +206,21 @@ class serialThreadClass(QThread):
                                     self.seriport.sec2.append(sn)
 
                                     if self.seriport.sec2[1] != 0:
-                                        self.seriport.count2 = self.seriport.sec2[1] - self.seriport.sec2[0]
-                                        if self.seriport.count2 <= 1:
-                                            self.seriport.secV.append(self.seriport.secV[0] + self.seriport.count2)
+                                        self.seriport.count = self.seriport.sec2[1] - self.seriport.sec2[0]
+                                        if self.seriport.count <= 1:
+                                            self.seriport.secV.append(self.seriport.secV[0] + self.seriport.count)
                                     else:
-                                        self.seriport.count2 = self.seriport.sec2[0] - self.seriport.sec2[1]
-                                        self.seriport.secV.append(self.seriport.secV[0] + self.seriport.count2)
-                                        if self.seriport.count2 == 59:
+                                        self.seriport.count = self.seriport.sec2[0] - self.seriport.sec2[1]
+                                        self.seriport.secV.append(self.seriport.secV[0] + self.seriport.count)
+                                        if self.seriport.count == 59:
                                             self.seriport.secV.append(self.seriport.secV[0] + 1)
                                             del self.seriport.secV[1]
 
-                                    self.seriport.y2.append(float(self.packetB_V))
-                                    self.graph2.emit(self.seriport.secV, self.seriport.y2)
-                                    del self.seriport.y2[0]
+                                    self.y2.append(float(self.packetB_V))
+                                    self.graph2.emit(self.seriport.secV, self.y2)
+                                    del self.y2[0]
                                     del self.seriport.sec2[0]
-                                    if self.seriport.count2 <= 1 or self.seriport.count2 == 59:
+                                    if self.seriport.count <= 1 or self.seriport.count == 59:
                                         del self.seriport.secV[0]
 
                             self.packetB_V = ""
@@ -239,21 +237,21 @@ class serialThreadClass(QThread):
                                     self.seriport.sec3.append(sn)
 
                                     if self.seriport.sec3[1] != 0:
-                                        self.seriport.count3 = self.seriport.sec3[1] - self.seriport.sec3[0]
-                                        if self.seriport.count3 <= 1:
-                                            self.seriport.secI.append(self.seriport.secI[0] + self.seriport.count3)
+                                        self.seriport.count = self.seriport.sec3[1] - self.seriport.sec3[0]
+                                        if self.seriport.count <= 1:
+                                            self.seriport.secI.append(self.seriport.secI[0] + self.seriport.count)
                                     else:
-                                        self.seriport.count3 = self.seriport.sec3[0] - self.seriport.sec3[1]
-                                        self.seriport.secI.append(self.seriport.secI[0] + self.seriport.count3)
-                                        if self.seriport.count3 == 59:
+                                        self.seriport.count = self.seriport.sec3[0] - self.seriport.sec3[1]
+                                        self.seriport.secI.append(self.seriport.secI[0] + self.seriport.count)
+                                        if self.seriport.count == 59:
                                             self.seriport.secI.append(self.seriport.secI[0] + 1)
                                             del self.seriport.secI[1]
 
-                                    self.seriport.y3.append(float(self.packetB_I))
-                                    self.graph3.emit(self.seriport.secI, self.seriport.y3)
-                                    del self.seriport.y3[0]
+                                    self.y3.append(float(self.packetB_I))
+                                    self.graph3.emit(self.seriport.secI, self.y3)
+                                    del self.y3[0]
                                     del self.seriport.sec3[0]
-                                    if self.seriport.count3 <= 1 or self.seriport.count3 == 59:
+                                    if self.seriport.count <= 1 or self.seriport.count == 59:
                                         del self.seriport.secI[0]
 
                             self.packetB_I = ""
@@ -270,21 +268,21 @@ class serialThreadClass(QThread):
                                     self.seriport.sec4.append(sn)
 
                                     if self.seriport.sec4[1] != 0:
-                                        self.seriport.count4 = self.seriport.sec4[1] - self.seriport.sec4[0]
-                                        if self.seriport.count4 <= 1:
-                                            self.seriport.secR.append(self.seriport.secR[0] + self.seriport.count4)
+                                        self.seriport.count = self.seriport.sec4[1] - self.seriport.sec4[0]
+                                        if self.seriport.count <= 1:
+                                            self.seriport.secR.append(self.seriport.secR[0] + self.seriport.count)
                                     else:
-                                        self.seriport.count4 = self.seriport.sec4[0] - self.seriport.sec4[1]
-                                        self.seriport.secR.append(self.seriport.secR[0] + self.seriport.count4)
-                                        if self.seriport.count3 == 59:
+                                        self.seriport.count = self.seriport.sec4[0] - self.seriport.sec4[1]
+                                        self.seriport.secR.append(self.seriport.secR[0] + self.seriport.count)
+                                        if self.seriport.count == 59:
                                             self.seriport.secR.append(self.seriport.secI[0] + 1)
                                             del self.seriport.secR[1]
 
-                                    self.seriport.y4.append(float(self.packetB_R))
-                                    self.graph4.emit(self.seriport.secR, self.seriport.y4)
-                                    del self.seriport.y4[0]
+                                    self.y4.append(float(self.packetB_R))
+                                    self.graph4.emit(self.seriport.secR, self.y4)
+                                    del self.y4[0]
                                     del self.seriport.sec4[0]
-                                    if self.seriport.count4 <= 1 or self.seriport.count4 == 59:
+                                    if self.seriport.count <= 1 or self.seriport.count == 59:
                                         del self.seriport.secR[0]
 
                             self.packetB_R = ""

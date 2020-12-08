@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1394</width>
-    <height>916</height>
+    <height>935</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -174,7 +174,7 @@
    <property name="geometry">
     <rect>
      <x>1070</x>
-     <y>130</y>
+     <y>140</y>
      <width>301</width>
      <height>161</height>
     </rect>
@@ -187,7 +187,7 @@
    <property name="geometry">
     <rect>
      <x>1070</x>
-     <y>100</y>
+     <y>110</y>
      <width>221</width>
      <height>22</height>
     </rect>
@@ -200,7 +200,7 @@
    <property name="geometry">
     <rect>
      <x>1300</x>
-     <y>100</y>
+     <y>110</y>
      <width>71</width>
      <height>21</height>
     </rect>
@@ -1188,6 +1188,29 @@ p, li { white-space: pre-wrap; }
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
   </widget>
+  <widget class="QLabel" name="label_10">
+   <property name="geometry">
+    <rect>
+     <x>1140</x>
+     <y>80</y>
+     <width>191</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
   <zorder>tab1_load</zorder>
   <zorder>pushButton</zorder>
   <zorder>pushButton_2</zorder>
@@ -1220,6 +1243,7 @@ p, li { white-space: pre-wrap; }
   <zorder>textBrowser_11</zorder>
   <zorder>textBrowser_12</zorder>
   <zorder>textBrowser_13</zorder>
+  <zorder>label_10</zorder>
  </widget>
  <customwidgets>
   <customwidget>
