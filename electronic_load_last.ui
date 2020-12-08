@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1394</width>
-    <height>935</height>
+    <height>915</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -285,7 +285,7 @@
     <enum>QFrame::Box</enum>
    </property>
    <property name="text">
-    <string>AC VALUES</string>
+    <string>POWER ANALYZER</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -441,7 +441,7 @@
     <enum>QFrame::WinPanel</enum>
    </property>
    <property name="text">
-    <string>VOLTAGE</string>
+    <string>POWER</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -467,7 +467,7 @@
     <enum>QFrame::WinPanel</enum>
    </property>
    <property name="text">
-    <string>CURRENT</string>
+    <string>VOLTAGE</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -960,7 +960,7 @@ p, li { white-space: pre-wrap; }
    </widget>
    <widget class="QWidget" name="tab_2">
     <attribute name="title">
-     <string>Efficiency</string>
+     <string>Power Analyzer</string>
     </attribute>
    </widget>
   </widget>
@@ -984,7 +984,7 @@ p, li { white-space: pre-wrap; }
     <enum>QFrame::WinPanel</enum>
    </property>
    <property name="text">
-    <string>RESISTOR</string>
+    <string>CURRENT</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -1010,7 +1010,7 @@ p, li { white-space: pre-wrap; }
     <enum>QFrame::WinPanel</enum>
    </property>
    <property name="text">
-    <string>POWER</string>
+    <string>RESISTOR</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

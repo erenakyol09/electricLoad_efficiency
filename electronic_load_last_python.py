@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_ELECTRONICLOAD(object):
     def setupUi(self, ELECTRONICLOAD):
         ELECTRONICLOAD.setObjectName("ELECTRONICLOAD")
-        ELECTRONICLOAD.resize(1394, 935)
+        ELECTRONICLOAD.resize(1394, 915)
         ELECTRONICLOAD.setStyleSheet("background-color: rgb(0, 132, 193);")
         ELECTRONICLOAD.setSizeGripEnabled(True)
         self.pushButton = QtWidgets.QPushButton(ELECTRONICLOAD)
@@ -489,14 +489,14 @@ class Ui_ELECTRONICLOAD(object):
         self.pushButton_3.setText(_translate("ELECTRONICLOAD", "SEND"))
         self.label_15.setText(_translate("ELECTRONICLOAD", "DC CURRENT"))
         self.label_16.setText(_translate("ELECTRONICLOAD", "DC VOLTAGE"))
-        self.label_18.setText(_translate("ELECTRONICLOAD", "AC VALUES"))
+        self.label_18.setText(_translate("ELECTRONICLOAD", "POWER ANALYZER"))
         self.label_22.setText(_translate("ELECTRONICLOAD", "P"))
         self.label_23.setText(_translate("ELECTRONICLOAD", "Vrms"))
         self.label_24.setText(_translate("ELECTRONICLOAD", "Irms"))
         self.label_25.setText(_translate("ELECTRONICLOAD", "pf"))
         self.label_26.setText(_translate("ELECTRONICLOAD", "FREQUENCY"))
-        self.label_17.setText(_translate("ELECTRONICLOAD", "VOLTAGE"))
-        self.label_20.setText(_translate("ELECTRONICLOAD", "CURRENT"))
+        self.label_17.setText(_translate("ELECTRONICLOAD", "POWER"))
+        self.label_20.setText(_translate("ELECTRONICLOAD", "VOLTAGE"))
         self.label_21.setText(_translate("ELECTRONICLOAD", "ELECTRONIC LOAD"))
         self.pushButton_4.setText(_translate("ELECTRONICLOAD", "SEND"))
         self.comboBox_3.setItemText(0, _translate("ELECTRONICLOAD", "A"))
@@ -523,8 +523,8 @@ class Ui_ELECTRONICLOAD(object):
         self.label_8.setText(_translate("ELECTRONICLOAD", "Connected Device Info:"))
         self.label_9.setText(_translate("ELECTRONICLOAD", "TIME:"))
         self.tab1_load.setTabText(self.tab1_load.indexOf(self.tab), _translate("ELECTRONICLOAD", "Electronic Load"))
-        self.tab1_load.setTabText(self.tab1_load.indexOf(self.tab_2), _translate("ELECTRONICLOAD", "Efficiency"))
-        self.label_19.setText(_translate("ELECTRONICLOAD", "RESISTOR"))
-        self.label_27.setText(_translate("ELECTRONICLOAD", "POWER"))
+        self.tab1_load.setTabText(self.tab1_load.indexOf(self.tab_2), _translate("ELECTRONICLOAD", "Power Analyzer"))
+        self.label_19.setText(_translate("ELECTRONICLOAD", "CURRENT"))
+        self.label_27.setText(_translate("ELECTRONICLOAD", "RESISTOR"))
 
 from pyqtgraph import PlotWidget
