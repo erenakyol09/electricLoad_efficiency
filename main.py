@@ -5,6 +5,7 @@ import electronic_load_last_python
 from serialThreadFile import serialThreadClass
 import time
 
+
 BAUDRATES = [
     1200,
     #            "1800",

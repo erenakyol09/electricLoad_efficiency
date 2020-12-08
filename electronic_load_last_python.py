@@ -7,6 +7,8 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from pyqtgraph import PlotWidget
+
 
 class Ui_ELECTRONICLOAD(object):
     def setupUi(self, ELECTRONICLOAD):
@@ -516,4 +518,4 @@ class Ui_ELECTRONICLOAD(object):
         self.label_19.setText(_translate("ELECTRONICLOAD", "RESISTOR"))
         self.label_27.setText(_translate("ELECTRONICLOAD", "POWER"))
 
-from pyqtgraph import PlotWidget
+

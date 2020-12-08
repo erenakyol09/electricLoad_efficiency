@@ -1,6 +1,6 @@
 import serial
-from PyQt5.QtCore import pyqtSignal, QThread,QTimer,QTime,QDateTime
-import time
+from PyQt5.QtCore import pyqtSignal, QThread,QTime,QDateTime
+
 
 class serialThreadClass(QThread):
 
@@ -21,8 +21,8 @@ class serialThreadClass(QThread):
 
     graph1  = pyqtSignal(list,list)
     graph2  = pyqtSignal(list,list)
-    graph3  = pyqtSignal(list, list)
-    graph4  = pyqtSignal(list, list)
+    graph3  = pyqtSignal(list,list)
+    graph4  = pyqtSignal(list,list)
 
     lcd     = pyqtSignal(str)
     lcd2    = pyqtSignal(str)
