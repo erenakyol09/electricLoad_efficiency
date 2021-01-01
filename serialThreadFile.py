@@ -1,6 +1,6 @@
 import serial
-from PyQt5.QtCore import pyqtSignal, QThread,QTime,QDateTime
-
+from PyQt5.QtCore import pyqtSignal, QThread,QDateTime
+import time
 
 class serialThreadClass(QThread):
 
@@ -41,9 +41,9 @@ class serialThreadClass(QThread):
         self.seriport.a        = 1
         self.seriport.run_data = 0
 
-        self.seriport.Command = 0;
-        self.seriport.Mode    = 0;
-        self.seriport.Value   = 0;
+        self.seriport.Command = 0
+        self.seriport.Mode    = 0
+        self.seriport.Value   = 0
 
         self.receiveCrc = 0
         self.crc        = ""
@@ -77,11 +77,14 @@ class serialThreadClass(QThread):
             displayText = dataTime.toString('dd.MM.yyyy-hh:mm:ss')
             self.lcd.emit(displayText)
 
+
             # POWER GRAPH PLOTTER
             if self.seriport.Command == 'B' and self.seriport.Mode == 'P' and self.seriport.Value != 0:
                 allData = self.seriport.Command + self.seriport.Mode + self.seriport.Value
                 print(allData)
-                self.seriport.write(self.seriport.Value.encode())
+                for i in range(len(allData)) :
+                    self.seriport.write(allData[i].encode())
+                    time.sleep(1 / 48) # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
 
             while self.seriport.in_waiting:
                 readHex = self.seriport.readline()
