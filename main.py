@@ -154,11 +154,11 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
             text3 = str(self.comboBox_3.currentText())
 
             if text3 == 'A':
-                self.mySerial.seriport.write(text3.encode())
+                self.mySerial.seriport.Command = 'A'
             elif text3 == 'B':
-                self.mySerial.seriport.write(text3.encode())
+                self.mySerial.seriport.Command = 'B'
             else:
-                self.mySerial.seriport.write(text3.encode())
+                self.mySerial.seriport.Command = 'C'
 
 
 
@@ -167,24 +167,25 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
             text4 = str(self.comboBox_4.currentText())
 
             if text4 == "Constant Current":
-                self.mySerial.seriport.write('I'.encode())
+                self.mySerial.seriport.Mode = 'I'
             elif text4 == "Constant Voltage":
-                self.mySerial.seriport.write('V'.encode())
+                self.mySerial.seriport.Mode = 'V'
             elif text4 == "Constant Power":
-                self.mySerial.seriport.write('P'.encode())
+                self.mySerial.seriport.Mode = 'P'
             else:
-                self.mySerial.seriport.write('R'.encode())
+                self.mySerial.seriport.Mode = 'R'
 
     def sendC_stop(self):
-        self.mySerial.seriport.write('S'.encode())
+        self.mySerial.seriport.Mode     = 0
+        self.mySerial.seriport.Command  = 0
+        self.mySerial.seriport.Value    = 0
+        self.lineEdit_2.clear()
         self.mySerial.seriport.run_data = 0
         print("STOP PUSHED")
 
     def sendElvalue(self):
 
         text5 = self.lineEdit_2.text()
-        print(text5)
-        print(len(text5))
 
         self.dizi = text5.encode()
         length = len(text5)
@@ -198,7 +199,6 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
             self.crc = self.crc + self.dizi[i]
 
         crc_str = hex(self.crc)
-        print(crc_str)
         crc_lentgh = len(crc_str)
 
         if crc_str[crc_lentgh - 3] == 'x':
@@ -213,12 +213,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
             self.dizi = self.str_length + self.dizi.decode() + crc_str[crc_lentgh - 4] + crc_str[crc_lentgh - 3]
             self.dizi = self.dizi + crc_str[crc_lentgh - 2] + crc_str[crc_lentgh - 1]
 
-        print(self.dizi)
-
-        if self.mySerial.seriport.a == 1:
-            for i in range(int(length + 2 + 4)):  # + 2 length - +2 crc low 2 byte
-                self.mySerial.seriport.write(self.dizi[i].encode())
-                time.sleep(1 / 1000)
+        self.mySerial.seriport.Value = self.dizi
 
         self.crc_str = ""
         self.crc = 0
@@ -227,13 +222,6 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
     def refresh_history(self):
 
         self.mySerial.seriport.run_data = 0
-
-        self.mySerial.seriport.secP = [0]
-        self.mySerial.seriport.secV = [0]
-        self.mySerial.seriport.secI = [0]
-        self.mySerial.seriport.secR = [0]
-
-        self.mySerial.seriport.count  = 0
 
         self.graphicsView.plotItem.clear()
         self.graphicsView_2.plotItem.clear()
@@ -255,6 +243,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.textBrowser_11.clear()
         self.textBrowser_12.clear()
         self.textBrowser_13.clear()
+
 
 
 

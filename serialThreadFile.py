@@ -41,22 +41,9 @@ class serialThreadClass(QThread):
         self.seriport.a        = 1
         self.seriport.run_data = 0
 
-        self.y  = [0]
-        self.y2 = [0]
-        self.y3 = [0]
-        self.y4 = [0]
-
-        self.seriport.sec  = [0]
-        self.seriport.sec2 = [0]
-        self.seriport.sec3 = [0]
-        self.seriport.sec4 = [0]
-
-        self.seriport.secP = [0]
-        self.seriport.secV = [0]
-        self.seriport.secI = [0]
-        self.seriport.secR = [0]
-
-        self.seriport.count  = 0
+        self.seriport.Command = 0;
+        self.seriport.Mode    = 0;
+        self.seriport.Value   = 0;
 
         self.receiveCrc = 0
         self.crc        = ""
@@ -89,15 +76,19 @@ class serialThreadClass(QThread):
             dataTime = QDateTime.currentDateTime()
             displayText = dataTime.toString('dd.MM.yyyy-hh:mm:ss')
             self.lcd.emit(displayText)
+
+            # POWER GRAPH PLOTTER
+            if self.seriport.Command == 'B' and self.seriport.Mode == 'P' and self.seriport.Value != 0:
+                allData = self.seriport.Command + self.seriport.Mode + self.seriport.Value
+                print(allData)
+                self.seriport.write(self.seriport.Value.encode())
+
             while self.seriport.in_waiting:
                 readHex = self.seriport.readline()
                 self.veri = readHex.decode()
                 print(self.veri)
-                #time.sleep(1 / 100) # 10 ms waiting
-                self.mesaj.emit(str(self.veri))
 
-                currentTime = QTime.currentTime()
-                sn = currentTime.second()
+                self.mesaj.emit(str(self.veri))
 
                 ## A  command filter ##
 
@@ -160,37 +151,12 @@ class serialThreadClass(QThread):
                     # checkSum control
                     if msg_Checksum == self.crc:
 
-                            self.seriport.count = self.seriport.count + 1
                             if self.veri[3] == 'P':
                                 for i in range(packet_size - 1):
                                     self.packetB_P = self.packetB_P + self.veri[i + 4]
 
                             self.mesaj1.emit(str(self.packetB_P))
 
-                            if len(self.packetB_P) != 0:
-
-                                if self.seriport.run_data == 1:
-
-                                    self.seriport.sec.append(sn)
-
-                                    if self.seriport.sec[1] != 0:
-                                        self.seriport.count = self.seriport.sec[1] - self.seriport.sec[0]
-                                        if self.seriport.count <= 1:
-                                            self.seriport.secP.append(self.seriport.secP[0] + self.seriport.count)
-                                    else:
-                                        self.seriport.count = self.seriport.sec[0] - self.seriport.sec[1]
-                                        self.seriport.secP.append(self.seriport.secP[0] + self.seriport.count)
-                                        if self.seriport.count == 59:
-                                            self.seriport.secP.append(self.seriport.secP[0] + 1)
-                                            del self.seriport.secP[1]
-
-                                    self.y.append(float(self.packetB_P))
-                                    self.graph1.emit(self.seriport.secP, self.y)
-                                    self.lcd2.emit(str(self.seriport.secP[0]))
-                                    del self.y[0]
-                                    del self.seriport.sec[0]
-                                    if self.seriport.count <= 1 or self.seriport.count == 59:
-                                        del self.seriport.secP[0]
 
                             self.packetB_P = ""
 
@@ -198,104 +164,23 @@ class serialThreadClass(QThread):
                                 for i in range(packet_size - 1):
                                     self.packetB_V = self.packetB_V + self.veri[i + 4]
                             self.mesaj2.emit(str(self.packetB_V))
-
-                            if len(self.packetB_V) != 0:
-
-                                if self.seriport.run_data == 1:
-
-                                    self.seriport.sec2.append(sn)
-
-                                    if self.seriport.sec2[1] != 0:
-                                        self.seriport.count = self.seriport.sec2[1] - self.seriport.sec2[0]
-                                        if self.seriport.count <= 1:
-                                            self.seriport.secV.append(self.seriport.secV[0] + self.seriport.count)
-                                    else:
-                                        self.seriport.count = self.seriport.sec2[0] - self.seriport.sec2[1]
-                                        self.seriport.secV.append(self.seriport.secV[0] + self.seriport.count)
-                                        if self.seriport.count == 59:
-                                            self.seriport.secV.append(self.seriport.secV[0] + 1)
-                                            del self.seriport.secV[1]
-
-                                    self.y2.append(float(self.packetB_V))
-                                    self.graph2.emit(self.seriport.secV, self.y2)
-                                    del self.y2[0]
-                                    del self.seriport.sec2[0]
-                                    if self.seriport.count <= 1 or self.seriport.count == 59:
-                                        del self.seriport.secV[0]
-
                             self.packetB_V = ""
 
                             if self.veri[3] == 'I':
                                 for i in range(packet_size - 1):
                                     self.packetB_I = self.packetB_I + self.veri[i + 4]
                             self.mesaj3.emit(str(self.packetB_I))
-
-                            if len(self.packetB_I) != 0:
-
-                                if self.seriport.run_data == 1:
-
-                                    self.seriport.sec3.append(sn)
-
-                                    if self.seriport.sec3[1] != 0:
-                                        self.seriport.count = self.seriport.sec3[1] - self.seriport.sec3[0]
-                                        if self.seriport.count <= 1:
-                                            self.seriport.secI.append(self.seriport.secI[0] + self.seriport.count)
-                                    else:
-                                        self.seriport.count = self.seriport.sec3[0] - self.seriport.sec3[1]
-                                        self.seriport.secI.append(self.seriport.secI[0] + self.seriport.count)
-                                        if self.seriport.count == 59:
-                                            self.seriport.secI.append(self.seriport.secI[0] + 1)
-                                            del self.seriport.secI[1]
-
-                                    self.y3.append(float(self.packetB_I))
-                                    self.graph3.emit(self.seriport.secI, self.y3)
-                                    del self.y3[0]
-                                    del self.seriport.sec3[0]
-                                    if self.seriport.count <= 1 or self.seriport.count == 59:
-                                        del self.seriport.secI[0]
-
                             self.packetB_I = ""
 
                             if self.veri[3] == 'R':
                                 for i in range(packet_size - 1):
                                     self.packetB_R = self.packetB_R + self.veri[i + 4]
                             self.mesaj4.emit(str(self.packetB_R))
-
-                            if len(self.packetB_R) != 0:
-
-                                if self.seriport.run_data == 1:
-
-                                    self.seriport.sec4.append(sn)
-
-                                    if self.seriport.sec4[1] != 0:
-                                        self.seriport.count = self.seriport.sec4[1] - self.seriport.sec4[0]
-                                        if self.seriport.count <= 1:
-                                            self.seriport.secR.append(self.seriport.secR[0] + self.seriport.count)
-                                    else:
-                                        self.seriport.count = self.seriport.sec4[0] - self.seriport.sec4[1]
-                                        self.seriport.secR.append(self.seriport.secR[0] + self.seriport.count)
-                                        if self.seriport.count == 59:
-                                            self.seriport.secR.append(self.seriport.secI[0] + 1)
-                                            del self.seriport.secR[1]
-
-                                    self.y4.append(float(self.packetB_R))
-                                    self.graph4.emit(self.seriport.secR, self.y4)
-                                    del self.y4[0]
-                                    del self.seriport.sec4[0]
-                                    if self.seriport.count <= 1 or self.seriport.count == 59:
-                                        del self.seriport.secR[0]
-
                             self.packetB_R = ""
-
-
 
                 ## C  command filter ##
 
                 if self.veri[0] == 'C':
-
-                    packet_size = 0
-                    crc_str = ""
-
 
                     packet_size = int(self.veri[1])*10 + int(self.veri[2])
                     for i in range(packet_size):
