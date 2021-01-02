@@ -77,15 +77,6 @@ class serialThreadClass(QThread):
             displayText = dataTime.toString('dd.MM.yyyy-hh:mm:ss')
             self.lcd.emit(displayText)
 
-
-            # POWER GRAPH PLOTTER
-            if self.seriport.Command == 'B' and self.seriport.Mode == 'P' and self.seriport.Value != 0:
-                allData = self.seriport.Command + self.seriport.Mode + self.seriport.Value
-                print(allData)
-                for i in range(len(allData)) :
-                    self.seriport.write(allData[i].encode())
-                    time.sleep(1 / 48) # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
-
             while self.seriport.in_waiting:
                 readHex = self.seriport.readline()
                 self.veri = readHex.decode()
@@ -160,6 +151,13 @@ class serialThreadClass(QThread):
 
                             self.mesaj1.emit(str(self.packetB_P))
 
+                            # POWER GRAPH PLOTTER
+                            if self.seriport.Command == 'B' and self.seriport.Mode == 'P' and self.seriport.Value != 0:
+                                allData = self.seriport.Command + self.seriport.Mode + self.seriport.Value
+                                print(allData)
+                                for i in range(len(allData)):
+                                    self.seriport.write(allData[i].encode())
+                                    time.sleep(1 / 50)  # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
 
                             self.packetB_P = ""
 
