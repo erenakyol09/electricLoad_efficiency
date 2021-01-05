@@ -134,6 +134,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
     def stopButton(self):
         self.label_10.setText("DEVICE NOT CONNECT")
         self.mySerial.seriport.a = 0
+        self.mySerial.seriport.write("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA".encode())
 
         print("device unconnected")
 
@@ -176,11 +177,10 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
                 self.mySerial.seriport.Mode = 'R'
 
     def sendC_stop(self):
-        self.mySerial.seriport.Mode     = 0
-        self.mySerial.seriport.Command  = 0
-        self.mySerial.seriport.Value    = 0
-        self.lineEdit_2.clear()
-        self.mySerial.seriport.run_data = 0
+        self.mySerial.seriport.Mode = 0
+        self.mySerial.seriport.Command = 0
+        self.mySerial.seriport.Value = 0
+        self.mySerial.seriport.write("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA".encode())
         print("STOP PUSHED")
 
     def sendElvalue(self):
@@ -215,11 +215,19 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
 
         self.mySerial.seriport.Value = self.dizi
 
+        # POWER GRAPH PLOTTER
+        if self.mySerial.seriport.Command == 'B' and self.mySerial.seriport.Mode == 'P' and self.mySerial.seriport.Value != 0:
+            allData = self.mySerial.seriport.Command + self.mySerial.seriport.Mode + self.mySerial.seriport.Value
+            print("sended packets:", allData)
+            self.mySerial.seriport.write(allData.encode())
+            time.sleep(1 / 50)  # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
+
         self.crc_str = ""
         self.crc = 0
         self.dizi = ""
 
     def refresh_history(self):
+
 
         self.mySerial.seriport.run_data = 0
 
@@ -229,6 +237,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.graphicsView_4.plotItem.clear()
 
         self.lcdNumber_2.display(str(0))
+        self.lineEdit_2.clear()
 
         self.textBrowser.clear()
         self.textBrowser_2.clear()
