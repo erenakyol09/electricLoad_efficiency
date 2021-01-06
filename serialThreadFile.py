@@ -76,8 +76,8 @@ class serialThreadClass(QThread):
 
         self.packetA   = ""
 
-        self.sendTime   = 1/4 # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
-        self.increase   = self.sendTime*4;
+        self.sendTime   = 1/50 # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
+        self.increase   = self.sendTime;
         self.C_sendTime = 1   # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
 
 
