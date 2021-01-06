@@ -46,15 +46,15 @@ class serialThreadClass(QThread):
         self.seriport.Value   = 0
 
         self.seriport.second  = 0
-        self.y       = [0]
-        self.y2      = [0]
-        self.y3      = [0]
-        self.y4      = [0]
+        self.seriport.y       = [0]
+        self.seriport.y2      = [0]
+        self.seriport.y3      = [0]
+        self.seriport.y4      = [0]
 
-        self.sec     = [0]
-        self.sec2    = [0]
-        self.sec3    = [0]
-        self.sec4    = [0]
+        self.seriport.sec     = [0]
+        self.seriport.sec2    = [0]
+        self.seriport.sec3    = [0]
+        self.seriport.sec4    = [0]
 
         self.receiveCrc = 0
         self.crc        = ""
@@ -203,11 +203,11 @@ class serialThreadClass(QThread):
 
                         if len(self.packetB_P) != 0:
                             if self.seriport.run_data == 1:
-                                self.y.append(float(self.packetB_P))
-                                self.sec.append(self.seriport.second)
-                                self.graph1.emit(self.sec, self.y)
-                                del self.y[0]
-                                del self.sec[0]
+                                self.seriport.y.append(float(self.packetB_P))
+                                self.seriport.sec.append(self.seriport.second)
+                                self.graph1.emit(self.seriport.sec, self.seriport.y)
+                                del self.seriport.y[0]
+                                del self.seriport.sec[0]
                                 self.seriport.second = self.seriport.second + self.increase
 
 
@@ -227,11 +227,11 @@ class serialThreadClass(QThread):
 
                         if len(self.packetB_V) != 0:
                             if self.seriport.run_data == 1:
-                                self.y2.append(float(self.packetB_V))
-                                self.sec2.append(self.seriport.second)
-                                self.graph2.emit(self.sec2, self.y2)
-                                del self.y2[0]
-                                del self.sec2[0]
+                                self.seriport.y2.append(float(self.packetB_V))
+                                self.seriport.sec2.append(self.seriport.second)
+                                self.graph2.emit(self.seriport.sec2, self.seriport.y2)
+                                del self.seriport.y2[0]
+                                del self.seriport.sec2[0]
 
                         # VOLTAGE GRAPH PLOTTER
                         if self.seriport.Command == 'B' and self.seriport.Mode == 'V' and self.seriport.Value != 0:
@@ -249,11 +249,11 @@ class serialThreadClass(QThread):
 
                         if len(self.packetB_I) != 0:
                             if self.seriport.run_data == 1:
-                                self.y3.append(float(self.packetB_I))
-                                self.sec3.append(self.seriport.second)
-                                self.graph3.emit(self.sec3, self.y3)
-                                del self.y3[0]
-                                del self.sec3[0]
+                                self.seriport.y3.append(float(self.packetB_I))
+                                self.seriport.sec3.append(self.seriport.second)
+                                self.graph3.emit(self.seriport.sec3, self.seriport.y3)
+                                del self.seriport.y3[0]
+                                del self.seriport.sec3[0]
 
                         # CURRENT GRAPH PLOTTER
                         if self.seriport.Command == 'B' and self.seriport.Mode == 'I' and self.seriport.Value != 0:
@@ -271,11 +271,11 @@ class serialThreadClass(QThread):
 
                         if len(self.packetB_R) != 0:
                             if self.seriport.run_data == 1:
-                                self.y4.append(float(self.packetB_R))
-                                self.sec4.append(self.seriport.second)
-                                self.graph4.emit(self.sec4, self.y4)
-                                del self.y4[0]
-                                del self.sec4[0]
+                                self.seriport.y4.append(float(self.packetB_R))
+                                self.seriport.sec4.append(self.seriport.second)
+                                self.graph4.emit(self.seriport.sec4, self.seriport.y4)
+                                del self.seriport.y4[0]
+                                del self.seriport.sec4[0]
 
                         # RESISTOR GRAPH PLOTTER
                         if self.seriport.Command == 'B' and self.seriport.Mode == 'R' and self.seriport.Value != 0:
