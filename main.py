@@ -134,7 +134,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
     def stopButton(self):
         self.label_10.setText("DEVICE NOT CONNECT")
         self.mySerial.seriport.a = 0
-        self.mySerial.seriport.write("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA".encode())
+        self.mySerial.seriport.write("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!".encode())
 
         print("device unconnected")
 
@@ -156,6 +156,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
 
             if text3 == 'A':
                 self.mySerial.seriport.Command = 'A'
+                self.mySerial.seriport.write(text3.encode())
             elif text3 == 'B':
                 self.mySerial.seriport.Command = 'B'
             else:
@@ -180,7 +181,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.mySerial.seriport.Mode = 0
         self.mySerial.seriport.Command = 0
         self.mySerial.seriport.Value = 0
-        self.mySerial.seriport.write("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA".encode())
+        self.mySerial.seriport.write("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!".encode())
         print("STOP PUSHED")
 
     def sendElvalue(self):
