@@ -139,8 +139,6 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
     def stopButton(self):
         self.label_10.setText("DEVICE NOT CONNECT")
         self.mySerial.seriport.a = 0
-        self.mySerial.seriport.write("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!".encode())
-        time.sleep(5 / 1000)
 
         print("device unconnected")
 
@@ -185,8 +183,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
                 self.mySerial.seriport.Mode = 'R'
 
     def sendC_stop(self):
-        self.mySerial.seriport.write("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!".encode())
-        time.sleep(5/1000)
+
         self.mySerial.seriport.Mode     = 0
         self.mySerial.seriport.Command  = 0
         self.mySerial.seriport.Value    = 0
