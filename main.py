@@ -91,9 +91,9 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.mySerial.graph3.connect(self.graphicsView_3.plotItem.plot)
 
         self.graphicsView_4.setBackground('w')
-        self.graphicsView_4.setLabel('left', 'Resistor (Ω)', **styles)
-        self.graphicsView_4.setLabel('bottom', 'Time (s)', **styles)
-        self.graphicsView_4.setTitle("Resistor-Time Graph", color="r", size="15pt")
+        self.graphicsView_4.setLabel('left', 'Voltage (V)', **styles)
+        self.graphicsView_4.setLabel('bottom', 'Current (I)', **styles)
+        self.graphicsView_4.setTitle("Current-Voltage Graph", color="r", size="15pt")
         self.graphicsView_4.setXRange(min=0, max=1000, padding=0)
         self.graphicsView_4.setYRange(min=0, max=1000, padding=0)
         self.mySerial.graph4.connect(self.graphicsView_4.plotItem.plot)
@@ -267,13 +267,18 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.mySerial.seriport.y3 = [0]
         self.mySerial.seriport.y4 = [0]
 
-        self.mySerial.seriport.sec = [0]
+        self.mySerial.seriport.yy = [0,0]
+        self.mySerial.seriport.yy2 = [0,0]
+        self.mySerial.seriport.yy3 = [0,0]
+        self.mySerial.seriport.yy4 = [0,0]
+
+        self.mySerial.seriport.sec1 = [0]
         self.mySerial.seriport.sec2 = [0]
         self.mySerial.seriport.sec3 = [0]
-        self.mySerial.seriport.sec4 = [0]
 
-
-
+        self.mySerial.seriport.sec_1 = [0,0]
+        self.mySerial.seriport.sec_2 = [0, 0]
+        self.mySerial.seriport.sec_3 = [0, 0]
 
 if __name__ == '__main__':
     uygulama = QApplication(sys.argv)
