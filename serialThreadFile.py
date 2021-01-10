@@ -36,35 +36,29 @@ class serialThreadClass(QThread):
         self.seriport = serial.Serial()
         self.seriport.baudrate = 1000
         self.seriport.port     = 'COM8'
-        self.seriport.timeout  = 1000
+        self.seriport.timeout  = 10000
 
         self.seriport.a        = 1
+        self.seriport.b        = 1
         self.seriport.run_data = 0
 
         self.seriport.Command = 0
         self.seriport.Mode    = 0
         self.seriport.Value   = 0
 
-        self.seriport.second  = 0
+        self.seriport.second1 = 0
+        self.seriport.second2 = 0
+        self.seriport.second3 = 0
+
         self.seriport.y       = [0]
         self.seriport.y2      = [0]
         self.seriport.y3      = [0]
         self.seriport.y4      = [0]
-
-        self.seriport.yy  = [0,0]
-        self.seriport.yy2 = [0,0]
-        self.seriport.yy3 = [0,0]
-        self.seriport.yy4 = [0,0]
-
+        self.seriport.y5      = [0]
 
         self.seriport.sec1 = [0]
         self.seriport.sec2 = [0]
         self.seriport.sec3 = [0]
-
-        self.seriport.sec_1 = [0,0]
-        self.seriport.sec_2 = [0, 0]
-        self.seriport.sec_3 = [0, 0]
-
 
         self.receiveCrc = 0
         self.crc        = ""
@@ -73,6 +67,10 @@ class serialThreadClass(QThread):
         self.power   = ""
         self.voltage = ""
         self.current = ""
+
+        # for current-voltage graph values
+        self.cur     = ""
+        self.volt    = ""
 
         self.packetC_P = ""
         self.packetC_U = ""
@@ -85,8 +83,10 @@ class serialThreadClass(QThread):
         self.packetA   = ""
 
         self.increase = 0
-        self.sendTime   = 1/50   # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
-        self.C_sendTime = 1   # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
+        self.sendTime   = 1/50 # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
+        self.C_sendTime = 1/50   # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
+
+        self.xx = 0 #',' detector number for B'X'
 
 
 
@@ -213,65 +213,74 @@ class serialThreadClass(QThread):
                                 self.power = str(self.power + self.veri[i + 4])
                         self.mesaj1.emit(self.power)
 
+                        if self.seriport.run_data == 1 and len(self.power) != 0:
+
+                            self.seriport.second1 = self.seriport.second1 + self.increase
+                            self.seriport.second1 = round(self.seriport.second1, 3)
+                            self.seriport.y.append(float(self.power))
+                            self.seriport.sec1.append(self.seriport.second1)
+                            self.lcd2.emit(str(self.seriport.second1))
+                            self.graph1.emit(self.seriport.sec1, self.seriport.y)
+                            del self.seriport.y[0]
+                            del self.seriport.sec1[0]
+
+                        self.power = ""
+
                         if self.veri[1] == 'V':
                             for i in range(packet_size - 1):
                                 self.voltage = str(self.voltage + self.veri[i + 4])
                         self.mesaj2.emit(self.voltage)
+
+                        if len(self.voltage) != 0 and self.seriport.run_data == 1:
+
+                            self.seriport.second2 = self.seriport.second2 + self.increase
+                            self.seriport.second2 = round(self.seriport.second2, 3)
+                            self.seriport.y2.append(float(self.voltage))
+                            self.seriport.sec2.append(self.seriport.second2)
+                            self.graph2.emit(self.seriport.sec2, self.seriport.y2)
+                            del self.seriport.y2[0]
+                            del self.seriport.sec2[0]
+
+                        self.voltage = ""
 
                         if self.veri[1] == 'I':
                             for i in range(packet_size - 1):
                                 self.current = str(self.current + self.veri[i + 4])
                         self.mesaj3.emit(self.current)
 
-                        if self.seriport.run_data == 1:
+                        if len(self.current) != 0 and self.seriport.run_data == 1:
 
-                            self.seriport.second = self.seriport.second + self.increase
-                            self.lcd2.emit(str(self.seriport.second))
-
-                            #self.graph1.emit(self.seriport.sec_1, self.seriport.yy)
-                            #self.graph2.emit(self.seriport.sec_2, self.seriport.yy2)
-                            #self.graph3.emit(self.seriport.sec_3, self.seriport.yy3)
-                            self.graph4.emit(self.seriport.yy3, self.seriport.yy2)
-
-                        if len(self.power) != 0:
-                            self.seriport.y.append(float(self.power))
-                            self.seriport.sec1.append(self.seriport.second)
-                            self.seriport.yy[0] = self.seriport.y[1]
-                            self.seriport.yy[1] = self.seriport.y[0]
-                            self.seriport.sec_1[0] = self.seriport.sec1[0]
-                            self.seriport.sec_1[1] = self.seriport.sec1[1]
-                            del self.seriport.y[0]
-                            del self.seriport.sec1[0]
-                            self.power = ""
-
-                        if len(self.voltage) != 0:
-                            self.seriport.y2.append(float(self.voltage))
-                            self.seriport.sec2.append(self.seriport.second)
-                            self.seriport.yy2[0] = self.seriport.y2[1]
-                            self.seriport.yy2[1] = self.seriport.y2[0]
-                            self.seriport.sec_2[0] = self.seriport.sec2[0]
-                            self.seriport.sec_2[1] = self.seriport.sec2[1]
-                            del self.seriport.y2[0]
-                            del self.seriport.sec2[0]
-                            self.voltage = ""
-
-                        if len(self.current) != 0:
+                            self.seriport.second3= self.seriport.second3 + self.increase
+                            self.seriport.second3 = round(self.seriport.second3, 3)
                             self.seriport.y3.append(float(self.current))
-                            self.seriport.sec3.append(self.seriport.second)
-                            self.seriport.yy3[0] = self.seriport.y3[1]
-                            self.seriport.yy3[1] = self.seriport.y3[0]
-                            self.seriport.sec_3[0] = self.seriport.sec3[0]
-                            self.seriport.sec_3[1] = self.seriport.sec3[1]
+                            self.seriport.sec3.append(self.seriport.second3)
+                            self.graph3.emit(self.seriport.sec3, self.seriport.y3)
                             del self.seriport.y3[0]
                             del self.seriport.sec3[0]
-                            self.current = ""
+
+                        self.current = ""
 
 
-                        #print(self.seriport.yy,  self.seriport.sec_1)
-                        #print(self.seriport.yy2, self.seriport.sec_2)
-                        #print(self.seriport.yy3, self.seriport.sec_3)
-                        print(self.seriport.yy3, self.seriport.yy2)
+                        if self.veri[1] == 'X':
+                            for i in range(packet_size - 1):
+                                if self.veri[i + 4] == ',':
+                                    self.xx = i
+                                    break
+                                self.cur = str(self.cur + self.veri[i + 4])
+                            for i in range(packet_size - 1-len(self.cur)-1):
+                                self.volt = str(self.volt + self.veri[i + 5 + self.xx])
 
+                        if len(self.cur) != 0 and self.seriport.run_data == 1:
+
+                            self.seriport.y4.append(float(self.cur))
+                            self.seriport.y5.append(float(self.volt))
+                            #self.graph4.emit(self.seriport.y4, self.seriport.y5)
+                            print(self.seriport.y4, self.seriport.y5)
+                            del self.seriport.y4[0]
+                            del self.seriport.y5[0]
+
+                        self.cur  = ""
+                        self.volt = ""
 
 
                         # CURRENT GRAPH PLOTTER
@@ -280,6 +289,10 @@ class serialThreadClass(QThread):
                             #print("sended packets:", allData)
                             self.seriport.write(allData.encode())
                             time.sleep(self.sendTime)  # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
+                            currentTime5 = QTime.currentTime()
+                            sn5 = currentTime5.msec()
+                            self.increase = abs(sn5 - sn1) / 1000
+                            #print(self.increase)
 
                         # POWER GRAPH PLOTTER
                         if self.seriport.Command == 'B' and self.seriport.Mode == 'P' and self.seriport.Value != 0:
@@ -287,6 +300,10 @@ class serialThreadClass(QThread):
                             print("sended packets:", allData)
                             self.seriport.write(allData.encode())
                             time.sleep(self.sendTime)  # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
+                            currentTime5 = QTime.currentTime()
+                            sn5 = currentTime5.msec()
+                            self.increase = abs(sn5 - sn1) / 1000
+                            #print(self.increase)
 
                         # VOLTAGE GRAPH PLOTTER
                         if self.seriport.Command == 'B' and self.seriport.Mode == 'V' and self.seriport.Value != 0:
@@ -294,17 +311,20 @@ class serialThreadClass(QThread):
                             print("sended packets:", allData)
                             self.seriport.write(allData.encode())
                             time.sleep(self.sendTime)  # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
+                            currentTime5 = QTime.currentTime()
+                            sn5 = currentTime5.msec()
+                            self.increase = abs(sn5 - sn1) / 1000
+                            #print(self.increase)
 
                         if self.seriport.Command == 'B' and self.seriport.Mode == 'R' and self.seriport.Value != 0:
                             allData = self.seriport.Command + self.seriport.Mode + self.seriport.Value
                             print("sended packets:", allData)
                             self.seriport.write(allData.encode())
                             time.sleep(self.sendTime)
-
-                        currentTime5 = QTime.currentTime()
-                        sn5 = currentTime5.msec()
-                        self.increase = abs(sn5-sn1)/1000
-                        #print(self.increase)
+                            currentTime5 = QTime.currentTime()
+                            sn5 = currentTime5.msec()
+                            self.increase = abs(sn5 - sn1) / 1000
+                            #print(self.increase)
 
                 ## C  command filter ##
 
@@ -367,5 +387,4 @@ class serialThreadClass(QThread):
                         if self.veri[3] == 'V':
                             for i in range(packet_size - 1):
                                 self.packetC_V = self.packetC_V + self.veri[i + 4]
-
 

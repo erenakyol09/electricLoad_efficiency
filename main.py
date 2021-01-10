@@ -41,7 +41,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.mySerial.mesaj1.connect(self.textBrowser_10.append) # el - power
         self.mySerial.mesaj2.connect(self.textBrowser_11.append) # el - voltage
         self.mySerial.mesaj3.connect(self.textBrowser_12.append) # el - current
-        self.mySerial.mesaj4.connect(self.textBrowser_13.append) # el - resistance
+
 
         self.mySerial.mesaj5.connect(self.textBrowser_3.append)
         self.mySerial.mesaj6.connect(self.textBrowser_4.append)
@@ -106,7 +106,10 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
             self.graphicsView_2.plotItem.clear()
             self.graphicsView_3.plotItem.clear()
             self.graphicsView_4.plotItem.clear()
-            self.mySerial.seriport.second = 0
+
+            self.mySerial.seriport.second1 = 0
+            self.mySerial.seriport.second2 = 0
+            self.mySerial.seriport.second3 = 0
 
     def startButton(self):
 
@@ -139,7 +142,6 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
     def stopButton(self):
         self.label_10.setText("DEVICE NOT CONNECT")
         self.mySerial.seriport.a = 0
-
         print("device unconnected")
 
     def sendData(self):
@@ -160,14 +162,12 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
 
             if text3 == 'A':
                 self.mySerial.seriport.Command = 'A'
-                self.mySerial.seriport.write(text3.encode())
+                self.mySerial.seriport.write("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA".encode())
                 time.sleep(5 / 1000)
             elif text3 == 'B':
                 self.mySerial.seriport.Command = 'B'
             else:
                 self.mySerial.seriport.Command = 'C'
-
-
 
     def sendMode(self):
         if self.mySerial.seriport.a == 1:
@@ -183,12 +183,16 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
                 self.mySerial.seriport.Mode = 'R'
 
     def sendC_stop(self):
-
         self.mySerial.seriport.Mode     = 0
         self.mySerial.seriport.Command  = 0
         self.mySerial.seriport.Value    = 0
         self.mySerial.seriport.run_data = 0
-        self.mySerial.seriport.second   = 0
+
+        self.mySerial.seriport.second1 = 0
+        self.mySerial.seriport.second2 = 0
+        self.mySerial.seriport.second3 = 0
+
+        self.mySerial.seriport.write("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!".encode())
         print("STOP PUSHED")
 
     def sendElvalue(self):
@@ -259,26 +263,21 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.textBrowser_10.clear()
         self.textBrowser_11.clear()
         self.textBrowser_12.clear()
-        self.textBrowser_13.clear()
 
-        self.mySerial.seriport.second = 0
+        self.mySerial.seriport.second1 = 0
+        self.mySerial.seriport.second2 = 0
+        self.mySerial.seriport.second3 = 0
+
         self.mySerial.seriport.y = [0]
         self.mySerial.seriport.y2 = [0]
         self.mySerial.seriport.y3 = [0]
         self.mySerial.seriport.y4 = [0]
-
-        self.mySerial.seriport.yy = [0,0]
-        self.mySerial.seriport.yy2 = [0,0]
-        self.mySerial.seriport.yy3 = [0,0]
-        self.mySerial.seriport.yy4 = [0,0]
+        self.mySerial.seriport.y5 = [0]
 
         self.mySerial.seriport.sec1 = [0]
         self.mySerial.seriport.sec2 = [0]
         self.mySerial.seriport.sec3 = [0]
 
-        self.mySerial.seriport.sec_1 = [0,0]
-        self.mySerial.seriport.sec_2 = [0, 0]
-        self.mySerial.seriport.sec_3 = [0, 0]
 
 if __name__ == '__main__':
     uygulama = QApplication(sys.argv)

@@ -216,7 +216,7 @@
    <property name="geometry">
     <rect>
      <x>1070</x>
-     <y>610</y>
+     <y>630</y>
      <width>91</width>
      <height>41</height>
     </rect>
@@ -241,7 +241,7 @@
    <property name="geometry">
     <rect>
      <x>1070</x>
-     <y>650</y>
+     <y>670</y>
      <width>91</width>
      <height>41</height>
     </rect>
@@ -266,7 +266,7 @@
    <property name="geometry">
     <rect>
      <x>1090</x>
-     <y>380</y>
+     <y>400</y>
      <width>261</width>
      <height>22</height>
     </rect>
@@ -295,7 +295,7 @@
    <property name="geometry">
     <rect>
      <x>1070</x>
-     <y>410</y>
+     <y>430</y>
      <width>91</width>
      <height>41</height>
     </rect>
@@ -321,7 +321,7 @@
    <property name="geometry">
     <rect>
      <x>1070</x>
-     <y>450</y>
+     <y>470</y>
      <width>91</width>
      <height>41</height>
     </rect>
@@ -347,7 +347,7 @@
    <property name="geometry">
     <rect>
      <x>1070</x>
-     <y>490</y>
+     <y>510</y>
      <width>91</width>
      <height>41</height>
     </rect>
@@ -373,7 +373,7 @@
    <property name="geometry">
     <rect>
      <x>1070</x>
-     <y>530</y>
+     <y>550</y>
      <width>91</width>
      <height>41</height>
     </rect>
@@ -399,7 +399,7 @@
    <property name="geometry">
     <rect>
      <x>1070</x>
-     <y>570</y>
+     <y>590</y>
      <width>91</width>
      <height>41</height>
     </rect>
@@ -425,7 +425,7 @@
    <property name="geometry">
     <rect>
      <x>1070</x>
-     <y>730</y>
+     <y>770</y>
      <width>91</width>
      <height>41</height>
     </rect>
@@ -451,7 +451,7 @@
    <property name="geometry">
     <rect>
      <x>1070</x>
-     <y>770</y>
+     <y>810</y>
      <width>91</width>
      <height>41</height>
     </rect>
@@ -477,7 +477,7 @@
    <property name="geometry">
     <rect>
      <x>1090</x>
-     <y>700</y>
+     <y>740</y>
      <width>261</width>
      <height>22</height>
     </rect>
@@ -968,32 +968,6 @@ p, li { white-space: pre-wrap; }
    <property name="geometry">
     <rect>
      <x>1070</x>
-     <y>810</y>
-     <width>91</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>9</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::WinPanel</enum>
-   </property>
-   <property name="text">
-    <string>CURRENT</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_27">
-   <property name="geometry">
-    <rect>
-     <x>1070</x>
      <y>850</y>
      <width>91</width>
      <height>41</height>
@@ -1010,7 +984,7 @@ p, li { white-space: pre-wrap; }
     <enum>QFrame::WinPanel</enum>
    </property>
    <property name="text">
-    <string>RESISTOR</string>
+    <string>CURRENT</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -1049,7 +1023,7 @@ p, li { white-space: pre-wrap; }
    <property name="geometry">
     <rect>
      <x>1160</x>
-     <y>410</y>
+     <y>430</y>
      <width>211</width>
      <height>41</height>
     </rect>
@@ -1062,7 +1036,7 @@ p, li { white-space: pre-wrap; }
    <property name="geometry">
     <rect>
      <x>1160</x>
-     <y>450</y>
+     <y>470</y>
      <width>211</width>
      <height>41</height>
     </rect>
@@ -1075,7 +1049,7 @@ p, li { white-space: pre-wrap; }
    <property name="geometry">
     <rect>
      <x>1160</x>
-     <y>490</y>
+     <y>510</y>
      <width>211</width>
      <height>41</height>
     </rect>
@@ -1088,7 +1062,7 @@ p, li { white-space: pre-wrap; }
    <property name="geometry">
     <rect>
      <x>1160</x>
-     <y>530</y>
+     <y>550</y>
      <width>211</width>
      <height>41</height>
     </rect>
@@ -1101,7 +1075,7 @@ p, li { white-space: pre-wrap; }
    <property name="geometry">
     <rect>
      <x>1160</x>
-     <y>570</y>
+     <y>590</y>
      <width>211</width>
      <height>41</height>
     </rect>
@@ -1114,7 +1088,7 @@ p, li { white-space: pre-wrap; }
    <property name="geometry">
     <rect>
      <x>1160</x>
-     <y>610</y>
+     <y>630</y>
      <width>211</width>
      <height>41</height>
     </rect>
@@ -1127,7 +1101,7 @@ p, li { white-space: pre-wrap; }
    <property name="geometry">
     <rect>
      <x>1160</x>
-     <y>650</y>
+     <y>670</y>
      <width>211</width>
      <height>41</height>
     </rect>
@@ -1140,7 +1114,7 @@ p, li { white-space: pre-wrap; }
    <property name="geometry">
     <rect>
      <x>1160</x>
-     <y>730</y>
+     <y>770</y>
      <width>211</width>
      <height>41</height>
     </rect>
@@ -1153,19 +1127,6 @@ p, li { white-space: pre-wrap; }
    <property name="geometry">
     <rect>
      <x>1160</x>
-     <y>770</y>
-     <width>211</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);</string>
-   </property>
-  </widget>
-  <widget class="QTextBrowser" name="textBrowser_12">
-   <property name="geometry">
-    <rect>
-     <x>1160</x>
      <y>810</y>
      <width>211</width>
      <height>41</height>
@@ -1175,7 +1136,7 @@ p, li { white-space: pre-wrap; }
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
   </widget>
-  <widget class="QTextBrowser" name="textBrowser_13">
+  <widget class="QTextBrowser" name="textBrowser_12">
    <property name="geometry">
     <rect>
      <x>1160</x>
@@ -1230,7 +1191,6 @@ p, li { white-space: pre-wrap; }
   <zorder>label_20</zorder>
   <zorder>label_21</zorder>
   <zorder>label_19</zorder>
-  <zorder>label_27</zorder>
   <zorder>lcdNumber</zorder>
   <zorder>textBrowser_3</zorder>
   <zorder>textBrowser_4</zorder>
@@ -1242,7 +1202,6 @@ p, li { white-space: pre-wrap; }
   <zorder>textBrowser_10</zorder>
   <zorder>textBrowser_11</zorder>
   <zorder>textBrowser_12</zorder>
-  <zorder>textBrowser_13</zorder>
   <zorder>label_10</zorder>
  </widget>
  <customwidgets>
