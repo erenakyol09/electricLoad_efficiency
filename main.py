@@ -232,7 +232,6 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
             allData = self.mySerial.seriport.Command + self.mySerial.seriport.Mode + self.mySerial.seriport.Value
             print("sended packets:", allData)
             self.mySerial.seriport.write(allData.encode())
-            time.sleep(1 / 50)  # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
 
         self.crc_str = ""
         self.crc = 0
