@@ -70,11 +70,11 @@ class serialThreadClass(QThread):
         self.packetA   = ""
 
         self.increase = 0
-        self.sendTime   = 1/50 # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
-        self.C_sendTime = 1/50   # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
+        self.sendTime   = 0   # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
+        self.C_sendTime = 0   # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
 
-        self.readHex = ['','','','','','','','','','']
-        self.veri    = ['','','','','','','','','','']
+        self.readHex = ['','','','','','','','','','','','','','','','','','','','','','','','','','','','','','']
+        self.veri    = ['','','','','','','','','','','','','','','','','','','','','','','','','','','','','','']
 
 
 
@@ -228,7 +228,21 @@ class serialThreadClass(QThread):
                     del self.seriport.x[0]
                     del self.seriport.y[0]
 
+                if self.seriport.txt_graph == "P-V" and self.seriport.run_data == 1:
 
+                    self.seriport.y.append(float(self.power))
+                    self.seriport.x.append(float(self.voltage))
+                    self.graph1.emit(self.seriport.x, self.seriport.y)
+                    del self.seriport.x[0]
+                    del self.seriport.y[0]
+
+                if self.seriport.txt_graph == "V-I" and self.seriport.run_data == 1:
+
+                    self.seriport.y.append(float(self.voltage))
+                    self.seriport.x.append(float(self.current))
+                    self.graph1.emit(self.seriport.x, self.seriport.y)
+                    del self.seriport.x[0]
+                    del self.seriport.y[0]
 
 
                 self.power = ""
@@ -268,4 +282,10 @@ class serialThreadClass(QThread):
                     #print("sended packets:", allData)
                     self.seriport.write(allData.encode())
                     time.sleep(self.sendTime)
+
+                # C COMMAND GRAPH PLOTTER
+                if self.seriport.Command == 'C':
+                    #print("sended packets:", self.seriport.Command)
+                    self.seriport.write("CCCCCCCCCCCCCC".encode())
+                    time.sleep(self.C_sendTime)  # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
 

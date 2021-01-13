@@ -266,8 +266,9 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.textBrowser_11.clear()
         self.textBrowser_12.clear()
 
-
+        self.mySerial.seriport.x = [0]
         self.mySerial.seriport.y = [0]
+
         self.mySerial.seriport.y2 = [0]
         self.mySerial.seriport.y3 = [0]
         self.mySerial.seriport.y4 = [0]

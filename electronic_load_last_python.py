@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from pyqtgraph import PlotWidget
 
 class Ui_ELECTRONICLOAD(object):
     def setupUi(self, ELECTRONICLOAD):
@@ -610,4 +611,4 @@ class Ui_ELECTRONICLOAD(object):
         self.tab1_load.setTabText(self.tab1_load.indexOf(self.tab_2), _translate("ELECTRONICLOAD", "Graphic Comparison"))
         self.label_19.setText(_translate("ELECTRONICLOAD", "CURRENT"))
 
-from pyqtgraph import PlotWidget
+
