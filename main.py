@@ -249,8 +249,6 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.graphicsView.plotItem.clear()
         self.graphicsView_2.plotItem.clear()
 
-
-
         self.lineEdit_2.clear()
 
         self.textBrowser.clear()
