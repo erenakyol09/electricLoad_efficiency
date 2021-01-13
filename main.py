@@ -32,6 +32,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.pushButton_4.clicked.connect(self.sendCommand)
         self.pushButton_5.clicked.connect(self.sendMode)
         self.pushButton_6.clicked.connect(self.sendElvalue)
+        self.pushButton_7.clicked.connect(self.graph_select)
         self.pushButton_10.clicked.connect(self.draw_graphics)
         self.pushButton_11.clicked.connect(self.sendC_stop)
         self.pushButton_12.clicked.connect(self.refresh_history)
@@ -55,7 +56,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.mySerial.mesaj12.connect(self.textBrowser_2.append)
 
         self.mySerial.lcd.connect(self.lcdNumber.display)
-        self.mySerial.lcd2.connect(self.lcdNumber_2.display)
+
 
         self.mySerial.label.connect(self.label_10.setText)
 
@@ -67,12 +68,8 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         styles = {'color': 'r', 'font-size': '20px'}
 
         self.graphicsView.setBackground('w')
-        self.graphicsView.setLabel('left', 'Power (W)', **styles)
-        self.graphicsView.setLabel('bottom', 'Time (s)', **styles)
-        self.graphicsView.setTitle("Power-Time Graph", color="r", size="15pt")
-        self.graphicsView.setXRange(min=0,max=1000 , padding=0)
-        self.graphicsView.setYRange(min=0,max=1000 , padding=0)
-        self.mySerial.graph1.connect(self.graphicsView.plotItem.plot)
+        self.graphicsView.setXRange(min=0, max=1000, padding=0)
+        self.graphicsView.setYRange(min=0, max=1000, padding=0)
 
         self.graphicsView_2.setBackground('w')
         self.graphicsView_2.setLabel('left', 'Voltage (V)', **styles)
@@ -82,34 +79,14 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.graphicsView_2.setYRange(min=0, max=1000, padding=0)
         self.mySerial.graph2.connect(self.graphicsView_2.plotItem.plot)
 
-        self.graphicsView_3.setBackground('w')
-        self.graphicsView_3.setLabel('left', 'Current (I)', **styles)
-        self.graphicsView_3.setLabel('bottom', 'Time (s)', **styles)
-        self.graphicsView_3.setTitle("Current-Time Graph", color="r", size="15pt")
-        self.graphicsView_3.setXRange(min=0, max=1000, padding=0)
-        self.graphicsView_3.setYRange(min=0, max=1000, padding=0)
-        self.mySerial.graph3.connect(self.graphicsView_3.plotItem.plot)
-
-        self.graphicsView_4.setBackground('w')
-        self.graphicsView_4.setLabel('left', 'Voltage (V)', **styles)
-        self.graphicsView_4.setLabel('bottom', 'Current (I)', **styles)
-        self.graphicsView_4.setTitle("Current-Voltage Graph", color="r", size="15pt")
-        self.graphicsView_4.setXRange(min=0, max=1000, padding=0)
-        self.graphicsView_4.setYRange(min=0, max=1000, padding=0)
-        self.mySerial.graph4.connect(self.graphicsView_4.plotItem.plot)
-
 
     def draw_graphics(self):
         if self.mySerial.seriport.a == 1:
             self.mySerial.seriport.run_data = 1
             self.graphicsView.plotItem.clear()
             self.graphicsView_2.plotItem.clear()
-            self.graphicsView_3.plotItem.clear()
-            self.graphicsView_4.plotItem.clear()
 
-            self.mySerial.seriport.second1 = 0
-            self.mySerial.seriport.second2 = 0
-            self.mySerial.seriport.second3 = 0
+
 
     def startButton(self):
 
@@ -153,6 +130,41 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         if self.mySerial.seriport.a == 1:
             self.mySerial.seriport.write(Tx_data.encode())
             print("sended")
+    def graph_select(self):
+        self.mySerial.seriport.txt_graph = str(self.comboBox_5.currentText())
+        styles = {'color': 'r', 'font-size': '20px'}
+
+        if self.mySerial.seriport.txt_graph == "I-V":
+            self.graphicsView.setLabel('left', 'Current (A)', **styles)
+            self.graphicsView.setLabel('bottom', 'Voltage (V)', **styles)
+            self.graphicsView.setTitle("Current-Voltage Graph", color="r", size="15pt")
+
+        if self.mySerial.seriport.txt_graph == "P-V":
+            self.graphicsView.setLabel('left', 'Power (W)', **styles)
+            self.graphicsView.setLabel('bottom', 'Voltage (V)', **styles)
+            self.graphicsView.setTitle("Power-Voltage Graph", color="r", size="15pt")
+
+        if self.mySerial.seriport.txt_graph == "η-P":
+            self.graphicsView.setLabel('left', 'Efficiency (η)', **styles)
+            self.graphicsView.setLabel('bottom', 'Power (W)', **styles)
+            self.graphicsView.setTitle("Efficiency-Power Graph", color="r", size="15pt")
+
+        if self.mySerial.seriport.txt_graph == "V-I":
+            self.graphicsView.setLabel('left', 'Voltage (V)', **styles)
+            self.graphicsView.setLabel('bottom', 'Current (A)', **styles)
+            self.graphicsView.setTitle("Voltage-Current Graph", color="r", size="15pt")
+
+        if self.mySerial.seriport.txt_graph == "cosφ-P":
+            self.graphicsView.setLabel('left', 'cosφ', **styles)
+            self.graphicsView.setLabel('bottom', 'Power (W)', **styles)
+            self.graphicsView.setTitle("cosφ-Power Graph", color="r", size="15pt")
+
+
+
+        self.graphicsView.setBackground('w')
+        self.graphicsView.setXRange(min=0, max=1000, padding=0)
+        self.graphicsView.setYRange(min=0, max=1000, padding=0)
+        self.mySerial.graph1.connect(self.graphicsView.plotItem.plot)
 
 
     def sendCommand(self):
@@ -162,7 +174,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
 
             if text3 == 'A':
                 self.mySerial.seriport.Command = 'A'
-                self.mySerial.seriport.write("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA".encode())
+                self.mySerial.seriport.write("AAAAAAAAAAAAAA".encode())
                 time.sleep(5 / 1000)
             elif text3 == 'B':
                 self.mySerial.seriport.Command = 'B'
@@ -183,55 +195,47 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
                 self.mySerial.seriport.Mode = 'R'
 
     def sendC_stop(self):
+
         self.mySerial.seriport.Mode     = 0
         self.mySerial.seriport.Command  = 0
         self.mySerial.seriport.Value    = 0
         self.mySerial.seriport.run_data = 0
 
-        self.mySerial.seriport.second1 = 0
-        self.mySerial.seriport.second2 = 0
-        self.mySerial.seriport.second3 = 0
-
-        self.mySerial.seriport.write("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!".encode())
+        self.mySerial.seriport.write("!!!!!!!!!!!!!!".encode())
         print("STOP PUSHED")
 
     def sendElvalue(self):
 
         text5 = self.lineEdit_2.text()
 
-        self.dizi = text5.encode()
-        length = len(text5)
+        if len(text5) == 6:
+            self.dizi = text5.encode()
+            length = len(text5)
 
-        if length < 10:
-            self.str_length = '0' + str(length)
-        if length >= 10:
-            self.str_length = str(length)
+            if length < 10:
+                self.str_length = '0' + str(length)
+            if length >= 10:
+                self.str_length = str(length)
 
-        for i in range(length):
-            self.crc = self.crc + self.dizi[i]
+            for i in range(length):
+                self.crc = self.crc + self.dizi[i]
 
-        crc_str = hex(self.crc)
-        crc_lentgh = len(crc_str)
+            crc_str = hex(self.crc)
+            crc_lentgh = len(crc_str)
 
-        if crc_str[crc_lentgh - 3] == 'x':
-            self.dizi = self.str_length + self.dizi.decode() + '0' + '0'
-            self.dizi = self.dizi + crc_str[crc_lentgh - 2] + crc_str[crc_lentgh - 1]
+            if crc_str[crc_lentgh - 3] == 'x':
+                self.dizi = self.str_length + self.dizi.decode() + '0' + '0'
+                self.dizi = self.dizi + crc_str[crc_lentgh - 2] + crc_str[crc_lentgh - 1]
 
-        if crc_str[crc_lentgh - 4] == 'x':
-            self.dizi = self.str_length + self.dizi.decode() + '0' + crc_str[crc_lentgh - 3]
-            self.dizi = self.dizi + crc_str[crc_lentgh - 2] + crc_str[crc_lentgh - 1]
+            if crc_str[crc_lentgh - 4] == 'x':
+                self.dizi = self.str_length + self.dizi.decode() + '0' + crc_str[crc_lentgh - 3]
+                self.dizi = self.dizi + crc_str[crc_lentgh - 2] + crc_str[crc_lentgh - 1]
 
-        if crc_str[crc_lentgh - 5] == 'x':
-            self.dizi = self.str_length + self.dizi.decode() + crc_str[crc_lentgh - 4] + crc_str[crc_lentgh - 3]
-            self.dizi = self.dizi + crc_str[crc_lentgh - 2] + crc_str[crc_lentgh - 1]
+            if crc_str[crc_lentgh - 5] == 'x':
+                self.dizi = self.str_length + self.dizi.decode() + crc_str[crc_lentgh - 4] + crc_str[crc_lentgh - 3]
+                self.dizi = self.dizi + crc_str[crc_lentgh - 2] + crc_str[crc_lentgh - 1]
 
-        self.mySerial.seriport.Value = self.dizi
-
-        # POWER GRAPH PLOTTER
-        if self.mySerial.seriport.Command == 'B' and self.mySerial.seriport.Mode == 'P' and self.mySerial.seriport.Value != 0:
-            allData = self.mySerial.seriport.Command + self.mySerial.seriport.Mode + self.mySerial.seriport.Value
-            print("sended packets:", allData)
-            self.mySerial.seriport.write(allData.encode())
+            self.mySerial.seriport.Value = self.dizi
 
         self.crc_str = ""
         self.crc = 0
@@ -244,10 +248,9 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
 
         self.graphicsView.plotItem.clear()
         self.graphicsView_2.plotItem.clear()
-        self.graphicsView_3.plotItem.clear()
-        self.graphicsView_4.plotItem.clear()
 
-        self.lcdNumber_2.display(str(0))
+
+
         self.lineEdit_2.clear()
 
         self.textBrowser.clear()
@@ -263,9 +266,6 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.textBrowser_11.clear()
         self.textBrowser_12.clear()
 
-        self.mySerial.seriport.second1 = 0
-        self.mySerial.seriport.second2 = 0
-        self.mySerial.seriport.second3 = 0
 
         self.mySerial.seriport.y = [0]
         self.mySerial.seriport.y2 = [0]
@@ -273,9 +273,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.mySerial.seriport.y4 = [0]
         self.mySerial.seriport.y5 = [0]
 
-        self.mySerial.seriport.sec1 = [0]
-        self.mySerial.seriport.sec2 = [0]
-        self.mySerial.seriport.sec3 = [0]
+
 
 
 if __name__ == '__main__':

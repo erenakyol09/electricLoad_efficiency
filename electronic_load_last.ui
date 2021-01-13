@@ -507,7 +507,7 @@
     <rect>
      <x>20</x>
      <y>20</y>
-     <width>1021</width>
+     <width>1031</width>
      <height>881</height>
     </rect>
    </property>
@@ -670,8 +670,16 @@
        <height>22</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="maxLength">
+      <number>6</number>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -736,7 +744,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>130</y>
+       <y>120</y>
        <width>991</width>
        <height>21</height>
       </rect>
@@ -755,7 +763,7 @@
       <enum>QFrame::Box</enum>
      </property>
      <property name="text">
-      <string>GRAPHICS</string>
+      <string>GRAPH</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -764,9 +772,9 @@
     <widget class="QPushButton" name="pushButton_10">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>170</y>
-       <width>91</width>
+       <x>900</x>
+       <y>430</y>
+       <width>111</width>
        <height>41</height>
       </rect>
      </property>
@@ -780,9 +788,9 @@
     <widget class="QPushButton" name="pushButton_11">
      <property name="geometry">
       <rect>
-       <x>150</x>
-       <y>170</y>
-       <width>91</width>
+       <x>900</x>
+       <y>490</y>
+       <width>111</width>
        <height>41</height>
       </rect>
      </property>
@@ -796,9 +804,9 @@
     <widget class="QPushButton" name="pushButton_12">
      <property name="geometry">
       <rect>
-       <x>300</x>
-       <y>170</y>
-       <width>91</width>
+       <x>900</x>
+       <y>550</y>
+       <width>111</width>
        <height>41</height>
       </rect>
      </property>
@@ -815,7 +823,7 @@
        <x>780</x>
        <y>30</y>
        <width>221</width>
-       <height>91</height>
+       <height>71</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -856,112 +864,318 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>230</y>
-       <width>491</width>
-       <height>301</height>
+       <y>150</y>
+       <width>881</width>
+       <height>691</height>
       </rect>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255);</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_9">
+    <widget class="QComboBox" name="comboBox_5">
      <property name="geometry">
       <rect>
-       <x>810</x>
-       <y>170</y>
-       <width>81</width>
-       <height>41</height>
+       <x>900</x>
+       <y>180</y>
+       <width>107</width>
+       <height>28</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>16</pointsize>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="sizeAdjustPolicy">
+      <enum>QComboBox::AdjustToContents</enum>
+     </property>
+     <item>
+      <property name="text">
+       <string>I-V</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>P-V</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>η-P</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>V-I</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>cosφ-P</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>900</x>
+       <y>150</y>
+       <width>111</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
        <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
      <property name="text">
-      <string>TIME:</string>
+      <string>GRAPHICS</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLCDNumber" name="lcdNumber_2">
+    <widget class="QPushButton" name="pushButton_7">
      <property name="geometry">
       <rect>
        <x>900</x>
-       <y>160</y>
-       <width>101</width>
-       <height>61</height>
+       <y>220</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(112, 181, 200);</string>
+     </property>
+     <property name="text">
+      <string>OK</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_3">
+     <property name="geometry">
+      <rect>
+       <x>380</x>
+       <y>60</y>
+       <width>281</width>
+       <height>31</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>13</pointsize>
+       <pointsize>12</pointsize>
       </font>
-     </property>
-     <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255);</string>
      </property>
-     <property name="frameShape">
-      <enum>QFrame::WinPanel</enum>
-     </property>
-     <property name="smallDecimalPoint">
-      <bool>true</bool>
-     </property>
-     <property name="digitCount">
-      <number>5</number>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
+    <widget class="QLabel" name="label_9">
+     <property name="geometry">
+      <rect>
+       <x>410</x>
+       <y>30</y>
+       <width>361</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>GRAPHIC RECORD MENU</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_8">
+     <property name="geometry">
+      <rect>
+       <x>670</x>
+       <y>60</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(112, 181, 200);</string>
+     </property>
+     <property name="text">
+      <string>SAVE</string>
+     </property>
+    </widget>
+    <zorder>pushButton_4</zorder>
+    <zorder>comboBox_3</zorder>
+    <zorder>label_3</zorder>
+    <zorder>comboBox_4</zorder>
+    <zorder>label_4</zorder>
+    <zorder>lineEdit_2</zorder>
+    <zorder>label_7</zorder>
+    <zorder>pushButton_5</zorder>
+    <zorder>pushButton_6</zorder>
+    <zorder>label_32</zorder>
+    <zorder>pushButton_10</zorder>
+    <zorder>pushButton_11</zorder>
+    <zorder>pushButton_12</zorder>
+    <zorder>textBrowser_2</zorder>
+    <zorder>label_8</zorder>
+    <zorder>graphicsView</zorder>
+    <zorder>label_5</zorder>
+    <zorder>pushButton_7</zorder>
+    <zorder>comboBox_5</zorder>
+    <zorder>lineEdit_3</zorder>
+    <zorder>label_9</zorder>
+    <zorder>pushButton_8</zorder>
+   </widget>
+   <widget class="QWidget" name="tab_2">
+    <attribute name="title">
+     <string>Graphic Comparison</string>
+    </attribute>
     <widget class="PlotWidget" name="graphicsView_2">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>540</y>
-       <width>491</width>
-       <height>301</height>
+       <y>130</y>
+       <width>1001</width>
+       <height>711</height>
       </rect>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255);</string>
      </property>
     </widget>
-    <widget class="PlotWidget" name="graphicsView_3">
+    <widget class="QLabel" name="label_33">
      <property name="geometry">
       <rect>
-       <x>510</x>
-       <y>230</y>
-       <width>491</width>
-       <height>301</height>
+       <x>20</x>
+       <y>10</y>
+       <width>991</width>
+       <height>21</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255);</string>
+      <string notr="true">background-color: rgb(166, 190, 200);</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="text">
+      <string>GRAPHIC COMPARISON MENU</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="PlotWidget" name="graphicsView_4">
+    <widget class="QLineEdit" name="lineEdit_6">
      <property name="geometry">
       <rect>
-       <x>510</x>
-       <y>540</y>
-       <width>491</width>
-       <height>301</height>
+       <x>360</x>
+       <y>40</y>
+       <width>351</width>
+       <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255);</string>
      </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
-   </widget>
-   <widget class="QWidget" name="tab_2">
-    <attribute name="title">
-     <string>Power Analyzer</string>
-    </attribute>
+    <widget class="QPushButton" name="pushButton_20">
+     <property name="geometry">
+      <rect>
+       <x>760</x>
+       <y>50</y>
+       <width>101</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(112, 181, 200);</string>
+     </property>
+     <property name="text">
+      <string>ENTER</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_28">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>50</y>
+       <width>271</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>ENTER THE GRAPHIC NAMES:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_7">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>80</y>
+       <width>351</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QLabel" name="label_19">
