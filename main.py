@@ -76,8 +76,9 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.graphicsView.setYRange(min=0, max=1000, padding=0)
 
         self.graphicsView_2.setBackground('w')
-        self.graphicsView_2.setXRange(min=0, max=1000, padding=0)
-        self.graphicsView_2.setYRange(min=0, max=1000, padding=0)
+        self.graphicsView_2.showGrid(x=True, y=True)
+        self.graphicsView_2.setXRange(min=0, max=100, padding=0)
+        self.graphicsView_2.setYRange(min=0, max=100, padding=0)
 
 
         self.twoGraphrow = [0,0,0]
@@ -247,7 +248,14 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
                 plotX1.append(float(item))
             for item in self.twoGraphrow[2]:
                 plotY1.append(float(item))
-            for i in range(2):
+
+            for i in range(len(plotX1)):
+                print(plotX1[i])
+                if plotX1[i] != 0.0:
+                    index2 = i
+                    break
+
+            for i in range(index2):
                 print(i)
                 del plotX1[0]
                 del plotY1[-1]
@@ -256,7 +264,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
             print(plotY1)
 
             pen = pg.mkPen(color=color, width=10)
-            self.graphicsView_2.plot(plotX1,plotY1, pen=pen)
+            self.graphicsView_2.plot(plotX1,plotY1, pen=pen,symbol='+', symbolSize=30, symbolBrush=('b'))
 
     def sendCommand(self):
 
