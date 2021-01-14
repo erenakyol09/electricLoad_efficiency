@@ -4,7 +4,8 @@ from PyQt5.QtWidgets import QApplication, QDialog
 import electronic_load_last_python
 from serialThreadFile import serialThreadClass
 import time
-
+import pyqtgraph as pg
+import pyqtgraph.exporters
 
 BAUDRATES = [
     1200,
@@ -33,9 +34,11 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.pushButton_5.clicked.connect(self.sendMode)
         self.pushButton_6.clicked.connect(self.sendElvalue)
         self.pushButton_7.clicked.connect(self.graph_select)
+        self.pushButton_8.clicked.connect(self.oneGraph_save)
         self.pushButton_10.clicked.connect(self.draw_graphics)
         self.pushButton_11.clicked.connect(self.sendC_stop)
         self.pushButton_12.clicked.connect(self.refresh_history)
+        self.pushButton_20.clicked.connect(self.twoGraph_draw)
         self.mySerial = serialThreadClass()
 
 
@@ -72,12 +75,9 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.graphicsView.setYRange(min=0, max=1000, padding=0)
 
         self.graphicsView_2.setBackground('w')
-        self.graphicsView_2.setLabel('left', 'Voltage (V)', **styles)
-        self.graphicsView_2.setLabel('bottom', 'Time (s)', **styles)
-        self.graphicsView_2.setTitle("Voltage-Time Graph", color="r", size="15pt")
         self.graphicsView_2.setXRange(min=0, max=1000, padding=0)
         self.graphicsView_2.setYRange(min=0, max=1000, padding=0)
-        self.mySerial.graph2.connect(self.graphicsView_2.plotItem.plot)
+        #self.mySerial.graph2.connect(self.graphicsView_2.plotItem.plot)
 
 
     def draw_graphics(self):
@@ -159,12 +159,77 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
             self.graphicsView.setLabel('bottom', 'Power (W)', **styles)
             self.graphicsView.setTitle("cosφ-Power Graph", color="r", size="15pt")
 
-
-
         self.graphicsView.setBackground('w')
         self.graphicsView.setXRange(min=0, max=1000, padding=0)
         self.graphicsView.setYRange(min=0, max=1000, padding=0)
         self.mySerial.graph1.connect(self.graphicsView.plotItem.plot)
+
+    def oneGraph_save(self):
+
+        graphName = self.lineEdit_3.text()
+        graphName = graphName + ".csv"
+        exporter = pg.exporters.CSVExporter(self.graphicsView.plotItem)
+        exporter.export(graphName)
+
+    def twoGraph_draw(self):
+
+        name1 = self.lineEdit_6.text()
+        name2 = self.lineEdit_7.text()
+        name1 = name1 + ".csv"
+        name2 = name2 + ".csv"
+
+        print(name1)
+        print(name2)
+
+        styles = {'color': 'r', 'font-size': '20px'}
+
+        if self.mySerial.seriport.txt_graph == "I-V":
+            self.graphicsView_2.setLabel('left', 'Current (A)', **styles)
+            self.graphicsView_2.setLabel('bottom', 'Voltage (V)', **styles)
+            self.graphicsView_2.setTitle("Current-Voltage Graph", color="r", size="15pt")
+
+        if self.mySerial.seriport.txt_graph == "P-V":
+            self.graphicsView_2.setLabel('left', 'Power (W)', **styles)
+            self.graphicsView_2.setLabel('bottom', 'Voltage (V)', **styles)
+            self.graphicsView_2.setTitle("Power-Voltage Graph", color="r", size="15pt")
+
+        if self.mySerial.seriport.txt_graph == "η-P":
+            self.graphicsView_2.setLabel('left', 'Efficiency (η)', **styles)
+            self.graphicsView_2.setLabel('bottom', 'Power (W)', **styles)
+            self.graphicsView_2.setTitle("Efficiency-Power Graph", color="r", size="15pt")
+
+        if self.mySerial.seriport.txt_graph == "V-I":
+            self.graphicsView_2.setLabel('left', 'Voltage (V)', **styles)
+            self.graphicsView_2.setLabel('bottom', 'Current (A)', **styles)
+            self.graphicsView_2.setTitle("Voltage-Current Graph", color="r", size="15pt")
+
+        if self.mySerial.seriport.txt_graph == "cosφ-P":
+            self.graphicsView_2.setLabel('left', 'cosφ', **styles)
+            self.graphicsView_2.setLabel('bottom', 'Power (W)', **styles)
+            self.graphicsView_2.setTitle("cosφ-Power Graph", color="r", size="15pt")
+
+        self.graphicsView_2.setBackground('w')
+        self.graphicsView_2.setXRange(min=0, max=1000, padding=0)
+        self.graphicsView_2.setYRange(min=0, max=1000, padding=0)
+
+        csv_file = name1
+        txt_file = "txt file"
+
+        text_list = []
+
+        with open(csv_file, "r") as my_input_file:
+            for line in my_input_file:
+                line = line.split(",", 2)
+                text_list.append(" ".join(line))
+
+        with open(txt_file, "w") as my_output_file:
+            my_output_file.write("#1\n")
+            my_output_file.write("double({},{})\n".format(len(text_list), 2))
+            for line in text_list:
+                my_output_file.write("  " + line)
+            print('File Successfully written.')
+
+
 
 
     def sendCommand(self):

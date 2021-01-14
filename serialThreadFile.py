@@ -22,7 +22,6 @@ class serialThreadClass(QThread):
     label = pyqtSignal(str)
 
     graph1  = pyqtSignal(list,list)
-    graph2  = pyqtSignal(list,list)
 
     lcd     = pyqtSignal(str)
     lcd2    = pyqtSignal(str)
