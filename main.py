@@ -6,6 +6,7 @@ from serialThreadFile import serialThreadClass
 import time
 import pyqtgraph as pg
 import pyqtgraph.exporters
+import csv
 
 BAUDRATES = [
     1200,
@@ -77,10 +78,13 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.graphicsView_2.setBackground('w')
         self.graphicsView_2.setXRange(min=0, max=1000, padding=0)
         self.graphicsView_2.setYRange(min=0, max=1000, padding=0)
-        #self.mySerial.graph2.connect(self.graphicsView_2.plotItem.plot)
+
+
+        self.twoGraphrow = [0,0,0]
 
 
     def draw_graphics(self):
+
         if self.mySerial.seriport.a == 1:
             self.mySerial.seriport.run_data = 1
             self.graphicsView.plotItem.clear()
@@ -117,6 +121,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
 
 
     def stopButton(self):
+
         self.label_10.setText("DEVICE NOT CONNECT")
         self.mySerial.seriport.a = 0
         print("device unconnected")
@@ -130,7 +135,9 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         if self.mySerial.seriport.a == 1:
             self.mySerial.seriport.write(Tx_data.encode())
             print("sended")
+
     def graph_select(self):
+
         self.mySerial.seriport.txt_graph = str(self.comboBox_5.currentText())
         styles = {'color': 'r', 'font-size': '20px'}
 
@@ -181,6 +188,9 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         print(name1)
         print(name2)
 
+        self.plot(name1,(255,0,0))
+        self.plot(name2,(100, 0, 0))
+
         styles = {'color': 'r', 'font-size': '20px'}
 
         if self.mySerial.seriport.txt_graph == "I-V":
@@ -212,27 +222,44 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.graphicsView_2.setXRange(min=0, max=1000, padding=0)
         self.graphicsView_2.setYRange(min=0, max=1000, padding=0)
 
-        csv_file = name1
-        txt_file = "txt file"
+    def plot(self, name, color):
 
-        text_list = []
+        with open(name, 'r') as file:
+            reader = csv.reader(file)
+            index = 0
+            for row in reader:
+                self.twoGraphrow[index] = row
+                index += 1
 
-        with open(csv_file, "r") as my_input_file:
-            for line in my_input_file:
-                line = line.split(",", 2)
-                text_list.append(" ".join(line))
+            print(self.twoGraphrow[0])
+            print(self.twoGraphrow[1])
+            print(self.twoGraphrow[2])
 
-        with open(txt_file, "w") as my_output_file:
-            my_output_file.write("#1\n")
-            my_output_file.write("double({},{})\n".format(len(text_list), 2))
-            for line in text_list:
-                my_output_file.write("  " + line)
-            print('File Successfully written.')
+            length = len(self.twoGraphrow[1])
 
+            del self.twoGraphrow[1][length - 1]
+            del self.twoGraphrow[2][length - 1]
 
+            plotX1 = []
+            plotY1 = []
 
+            for item in self.twoGraphrow[1]:
+                plotX1.append(float(item))
+            for item in self.twoGraphrow[2]:
+                plotY1.append(float(item))
+            for i in range(2):
+                print(i)
+                del plotX1[0]
+                del plotY1[-1]
+
+            print(plotX1)
+            print(plotY1)
+
+            pen = pg.mkPen(color=color, width=10)
+            self.graphicsView_2.plot(plotX1,plotY1, pen=pen)
 
     def sendCommand(self):
+
         if self.mySerial.seriport.a == 1:
 
             text3 = str(self.comboBox_3.currentText())
@@ -247,6 +274,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
                 self.mySerial.seriport.Command = 'C'
 
     def sendMode(self):
+
         if self.mySerial.seriport.a == 1:
             text4 = str(self.comboBox_4.currentText())
 
@@ -307,7 +335,6 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.dizi = ""
 
     def refresh_history(self):
-
 
         self.mySerial.seriport.run_data = 0
 
