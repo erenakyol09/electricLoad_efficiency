@@ -1,5 +1,5 @@
 import serial
-from PyQt5.QtCore import pyqtSignal,QTime,QThread,QDateTime
+from PyQt5.QtCore import pyqtSignal,QThread,QDateTime
 import time
 
 class serialThreadClass(QThread):
@@ -49,11 +49,6 @@ class serialThreadClass(QThread):
         self.seriport.x2 = [0,0]
         self.seriport.y2 = [0,0]
 
-
-        self.seriport.y3      = [0]
-        self.seriport.y4      = [0]
-        self.seriport.y5      = [0]
-
         self.receiveCrc = 0
         self.crc        = ""
 
@@ -73,10 +68,10 @@ class serialThreadClass(QThread):
 
         self.increase = 0
         self.sendTime   = 1/50   # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
-        self.C_sendTime = 0   # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
+        self.C_sendTime = 1  # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
 
-        self.readHex = ['','','','','','','','','','',]
-        self.veri    = ['','','','','','','','','','',]
+        self.readHex = ['','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',]
+        self.veri    = ['','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',]
 
 
 
@@ -123,8 +118,9 @@ class serialThreadClass(QThread):
             # C COMMAND GRAPH PLOTTER
             if self.seriport.Command == 'C':
                 #print("sended packets:", self.seriport.Command)
-                self.seriport.write(self.seriport.Command.encode())
+                self.seriport.write("CCCCCCCCCCCCCC".encode())
                 time.sleep(self.C_sendTime)  # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
+
             dataTime = QDateTime.currentDateTime()
             displayText = dataTime.toString('dd.MM.yyyy-hh:mm:ss')
             self.lcd.emit(displayText)
@@ -143,10 +139,7 @@ class serialThreadClass(QThread):
                     if len((self.veri[index])) == 0:
                         break
                     index = index + 1
-                print(index)
-                print(self.veri[0])
-                print(self.veri[1])
-                print(self.veri[2])
+
 
                 ## A  command filter ##
                 for i in range(index):
@@ -270,10 +263,87 @@ class serialThreadClass(QThread):
                     del self.seriport.y[0]
 
 
+
+                ## C  command filter ##
+                for i in range(index):
+                    if self.veri[i][0] == 'C':
+                        packet_size = int(self.veri[i][2]) * 10 + int(self.veri[i][3])
+                        for l in range(packet_size):
+                            self.receiveCrc = self.receiveCrc + self.readHex[i][l + 3]
+
+                        crc_str = hex(self.receiveCrc)
+                        self.receiveCrc = 0
+                        crc_lentgh = len(crc_str)
+
+                        if crc_str[crc_lentgh - 3] == 'x':
+                            self.crc = '0' + '0' + crc_str[crc_lentgh - 2] + crc_str[crc_lentgh - 1]
+                        if crc_str[crc_lentgh - 4] == 'x':
+                            self.crc = '0' + crc_str[crc_lentgh - 3] + crc_str[crc_lentgh - 2] + crc_str[
+                                crc_lentgh - 1]
+                        if crc_str[crc_lentgh - 5] == 'x':
+                            self.crc = crc_str[crc_lentgh - 4] + crc_str[crc_lentgh - 3] + crc_str[
+                                crc_lentgh - 2]
+                            self.crc = self.crc + crc_str[crc_lentgh - 1]
+
+                        veri_length = len(self.veri[i])
+                        msg_Checksum = self.veri[i][3 + packet_size - veri_length] + self.veri[i][
+                            4 + packet_size - veri_length]
+                        msg_Checksum = msg_Checksum + self.veri[i][5 + packet_size - veri_length]
+                        msg_Checksum = msg_Checksum + self.veri[i][6 + packet_size - veri_length]
+
+                        # checkSum control
+                        if msg_Checksum == self.crc:
+
+                            if self.veri[i][1] == 'P':
+                                for k in range(packet_size - 1):
+                                    self.packetC_P = str(self.packetC_P+ self.veri[i][k + 4])
+                            self.mesaj5.emit(str(self.packetC_P))
+
+                            if self.veri[i][1] == 'U':
+                                for k in range(packet_size - 1):
+                                    self.packetC_U = str(self.packetC_U + self.veri[i][k + 4])
+                            self.mesaj6.emit(str(self.packetC_U))
+
+                            if self.veri[i][1] == 'J':
+                                for k in range(packet_size - 1):
+                                    self.packetC_J = str(self.packetC_J + self.veri[i][k + 4])
+                            self.mesaj7.emit(str(self.packetC_J))
+
+
+                            if self.veri[i][1] == 'p':
+                                for k in range(packet_size - 1):
+                                    self.packetC_p = str(self.packetC_p + self.veri[i][k + 4])
+                            self.mesaj8.emit(str(self.packetC_p))
+
+
+                            if self.veri[i][1] == 'f':
+                                for k in range(packet_size - 1):
+                                    self.packetC_f = str(self.packetC_f + self.veri[i][k + 4])
+                            self.mesaj9.emit(str(self.packetC_f))
+
+
+                            if self.veri[i][1] == 'V':
+                                for k in range(packet_size - 1):
+                                    self.packetC_V = str(self.packetC_V + self.veri[i][k + 4])
+                            self.mesaj10.emit(str(self.packetC_V))
+
+                            if self.veri[i][1] == 'I':
+                                for k in range(packet_size - 1):
+                                    self.packetC_I = str(self.packetC_I + self.veri[i][k + 4])
+                            self.mesaj11.emit(str(self.packetC_I))
+
+
+                self.packetC_P = ""
+                self.packetC_U = ""
+                self.packetC_J = ""
+                self.packetC_p = ""
+                self.packetC_f = ""
+                self.packetC_V = ""
+                self.packetC_I = ""
+
                 self.power = ""
                 self.voltage = ""
                 self.current = ""
-
 
                 # CURRENT GRAPH PLOTTER
                 if self.seriport.Command == 'B' and self.seriport.Mode == 'I' and self.seriport.Value != 0:
