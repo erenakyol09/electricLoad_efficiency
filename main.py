@@ -72,6 +72,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         styles = {'color': 'r', 'font-size': '20px'}
 
         self.graphicsView.setBackground('w')
+        self.graphicsView.showGrid(x=True, y=True)
         self.graphicsView.setXRange(min=0, max=1000, padding=0)
         self.graphicsView.setYRange(min=0, max=1000, padding=0)
 
@@ -181,16 +182,16 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
 
     def twoGraph_draw(self):
 
+        self.graphicsView_2.plotItem.clear()
         name1 = self.lineEdit_6.text()
         name2 = self.lineEdit_7.text()
-        name1 = name1 + ".csv"
-        name2 = name2 + ".csv"
+        name11 = name1 + ".csv"
+        name22 = name2 + ".csv"
 
-        print(name1)
-        print(name2)
-
-        self.plot(name1,(255,0,0))
-        self.plot(name2,(100, 0, 0))
+        if len(name1) != 0:
+            self.plot(name11,(255,0,0))
+        if len(name2) != 0:
+            self.plot(name22,(100,0,0))
 
         styles = {'color': 'r', 'font-size': '20px'}
 
@@ -232,36 +233,16 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
                 self.twoGraphrow[index] = row
                 index += 1
 
-            print(self.twoGraphrow[0])
-            print(self.twoGraphrow[1])
+            length = len(self.twoGraphrow[2])
             print(self.twoGraphrow[2])
-
-            length = len(self.twoGraphrow[1])
-
-            del self.twoGraphrow[1][length - 1]
-            del self.twoGraphrow[2][length - 1]
-
             plotX1 = []
             plotY1 = []
 
-            for item in self.twoGraphrow[1]:
-                plotX1.append(float(item))
-            for item in self.twoGraphrow[2]:
-                plotY1.append(float(item))
-
-            for i in range(len(plotX1)):
-                print(plotX1[i])
-                if plotX1[i] != 0.0:
-                    index2 = i
-                    break
-
-            for i in range(index2):
-                print(i)
-                del plotX1[0]
-                del plotY1[-1]
-
-            print(plotX1)
-            print(plotY1)
+            for i in range(length-1):
+                if i%2 == 0:
+                    plotX1.append(float(self.twoGraphrow[2][i]))
+                if i%2 == 1:
+                    plotY1.append(float(self.twoGraphrow[2][i]))
 
             pen = pg.mkPen(color=color, width=10)
             self.graphicsView_2.plot(plotX1,plotY1, pen=pen,symbol='+', symbolSize=30, symbolBrush=('b'))
@@ -364,10 +345,12 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.textBrowser_11.clear()
         self.textBrowser_12.clear()
 
-        self.mySerial.seriport.x = [0]
-        self.mySerial.seriport.y = [0]
+        self.mySerial.seriport.x = [0,0]
+        self.mySerial.seriport.y = [0,0]
 
-        self.mySerial.seriport.y2 = [0]
+        self.mySerial.seriport.x2 = [0,0]
+        self.mySerial.seriport.y2 = [0,0]
+
         self.mySerial.seriport.y3 = [0]
         self.mySerial.seriport.y4 = [0]
         self.mySerial.seriport.y5 = [0]

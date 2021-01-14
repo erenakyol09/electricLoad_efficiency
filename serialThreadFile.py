@@ -43,10 +43,13 @@ class serialThreadClass(QThread):
         self.seriport.Mode    = 0
         self.seriport.Value   = 0
 
-        self.seriport.x  = [0]
-        self.seriport.y  = [0]
+        self.seriport.x  = [0,0]
+        self.seriport.y  = [0,0]
 
-        self.seriport.y2      = [0]
+        self.seriport.x2 = [0,0]
+        self.seriport.y2 = [0,0]
+
+
         self.seriport.y3      = [0]
         self.seriport.y4      = [0]
         self.seriport.y5      = [0]
@@ -127,6 +130,10 @@ class serialThreadClass(QThread):
             self.lcd.emit(displayText)
 
             while self.seriport.in_waiting:
+
+                dataTime = QDateTime.currentDateTime()
+                displayText = dataTime.toString('dd.MM.yyyy-hh:mm:ss')
+                self.lcd.emit(displayText)
 
                 index = 0
                 while 1:
@@ -221,27 +228,44 @@ class serialThreadClass(QThread):
                                     self.current = str(self.current + self.veri[i][k + 4])
                             self.mesaj3.emit(self.current)
 
+                print(self.power)
+                print(self.voltage)
+                print(self.current)
+
                 if self.seriport.txt_graph == "I-V" and self.seriport.run_data == 1:
 
+                    self.seriport.y[1] = float(self.current)
+                    self.seriport.x[1] = float(self.voltage)
                     self.seriport.y.append(float(self.current))
                     self.seriport.x.append(float(self.voltage))
-                    self.graph1.emit(self.seriport.x, self.seriport.y)
+                    self.seriport.x2[0],self.seriport.x2[1] = self.seriport.x[0],self.seriport.x[1]
+                    self.seriport.y2[0], self.seriport.y2[1] = self.seriport.y[0], self.seriport.y[1]
+                    self.graph1.emit(self.seriport.x2, self.seriport.y2)
                     del self.seriport.x[0]
                     del self.seriport.y[0]
 
+
                 if self.seriport.txt_graph == "P-V" and self.seriport.run_data == 1:
 
+                    self.seriport.y[1] = float(self.power)
+                    self.seriport.x[1] = float(self.voltage)
                     self.seriport.y.append(float(self.power))
                     self.seriport.x.append(float(self.voltage))
-                    self.graph1.emit(self.seriport.x, self.seriport.y)
+                    self.seriport.x2[0], self.seriport.x2[1] = self.seriport.x[0], self.seriport.x[1]
+                    self.seriport.y2[0], self.seriport.y2[1] = self.seriport.y[0], self.seriport.y[1]
+                    self.graph1.emit(self.seriport.x2, self.seriport.y2)
                     del self.seriport.x[0]
                     del self.seriport.y[0]
 
                 if self.seriport.txt_graph == "V-I" and self.seriport.run_data == 1:
 
+                    self.seriport.y[1] = float(self.voltage)
+                    self.seriport.x[1] = float(self.current)
                     self.seriport.y.append(float(self.voltage))
                     self.seriport.x.append(float(self.current))
-                    self.graph1.emit(self.seriport.x, self.seriport.y)
+                    self.seriport.x2[0], self.seriport.x2[1] = self.seriport.x[0], self.seriport.x[1]
+                    self.seriport.y2[0], self.seriport.y2[1] = self.seriport.y[0], self.seriport.y[1]
+                    self.graph1.emit(self.seriport.x2, self.seriport.y2)
                     del self.seriport.x[0]
                     del self.seriport.y[0]
 
