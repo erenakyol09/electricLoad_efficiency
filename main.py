@@ -185,6 +185,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.graphName = self.lineEdit_3.text()
         self.graphName = self.graphName + ".csv"
         self.textBrowser_14.append(" ------------------- START -------------------")
+        self.textBrowser_14.append("          ")
         self.textBrowser_14.append("Tarih-Saat:")
         self.textBrowser_14.append(self.mySerial.seriport.displayText)
         self.textBrowser_14.append("          ")
