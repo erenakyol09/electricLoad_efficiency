@@ -7,6 +7,7 @@ import time
 import pyqtgraph as pg
 import pyqtgraph.exporters
 import csv
+import  os
 
 BAUDRATES = [
     1200,
@@ -40,6 +41,10 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.pushButton_11.clicked.connect(self.sendC_stop)
         self.pushButton_12.clicked.connect(self.refresh_history)
         self.pushButton_20.clicked.connect(self.twoGraph_draw)
+        self.pushButton_22.clicked.connect(self.refresh_page3)
+        self.pushButton_23.clicked.connect(self.save_page3)
+        self.pushButton_24.clicked.connect(self.refresh_page2)
+
         self.mySerial = serialThreadClass()
 
 
@@ -58,6 +63,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
 
         self.mySerial.mesaj.connect(self.textBrowser.append)
         self.mySerial.mesaj12.connect(self.textBrowser_2.append)
+
 
         self.mySerial.lcd.connect(self.lcdNumber.display)
 
@@ -83,6 +89,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
 
 
         self.twoGraphrow = [0,0,0]
+        self.graphName = ""
 
 
     def draw_graphics(self):
@@ -175,10 +182,34 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
 
     def oneGraph_save(self):
 
-        graphName = self.lineEdit_3.text()
-        graphName = graphName + ".csv"
+        self.graphName = self.lineEdit_3.text()
+        self.graphName = self.graphName + ".csv"
+
+        self.textBrowser_14.append("Tarih-Saat:")
+        self.textBrowser_14.append(self.mySerial.seriport.displayText)
+        self.textBrowser_14.append("          ")
+        self.textBrowser_14.append(self.mySerial.seriport.A_message[0])
+        self.textBrowser_14.append(self.mySerial.seriport.A_message[1])
+        self.textBrowser_14.append("          ")
+        self.textBrowser_14.append("Dosya Adı:")
+        self.textBrowser_14.append(self.graphName)
+        self.textBrowser_14.append("          ")
+        self.textBrowser_14.append("Dosya Konumu:")
+        self.textBrowser_14.append(os.path.abspath(self.graphName))
+        self.textBrowser_14.append("          ")
+        self.textBrowser_14.append("Mod:")
+        self.textBrowser_14.append(self.comboBox_4.currentText())
+        self.textBrowser_14.append("          ")
+        self.textBrowser_14.append("Değer:")
+        self.textBrowser_14.append(self.lineEdit_2.text())
+        self.textBrowser_14.append("          ")
+        self.textBrowser_14.append("Grafik:")
+        self.textBrowser_14.append(self.mySerial.seriport.txt_graph)
+        self.textBrowser_14.append("          ")
+        self.textBrowser_14.append(" ------------------- END -------------------")
+
         exporter = pg.exporters.CSVExporter(self.graphicsView.plotItem)
-        exporter.export(graphName)
+        exporter.export(self.graphName)
 
     def twoGraph_draw(self):
 
@@ -234,7 +265,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
                 index += 1
 
             length = len(self.twoGraphrow[2])
-            print(self.twoGraphrow[2])
+
             plotX1 = []
             plotY1 = []
 
@@ -328,7 +359,6 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.mySerial.seriport.run_data = 0
 
         self.graphicsView.plotItem.clear()
-        self.graphicsView_2.plotItem.clear()
 
         self.lineEdit_2.clear()
 
@@ -351,10 +381,45 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
         self.mySerial.seriport.x2 = [0,0]
         self.mySerial.seriport.y2 = [0,0]
 
-        self.mySerial.seriport.y3 = [0]
-        self.mySerial.seriport.y4 = [0]
-        self.mySerial.seriport.y5 = [0]
+    def refresh_page2(self):
 
+        self.graphicsView_2.plotItem.clear()
+        self.lineEdit_6.clear()
+        self.lineEdit_7.clear()
+
+    def refresh_page3(self):
+
+        self.textBrowser_14.clear()
+
+    def save_page3(self):
+
+        with open("information.txt","+a",encoding="utf-8") as dosya:
+            dosya.write(" ------------------- START -------------------")
+            dosya.write("Tarih-Saat:")
+            dosya.write(self.mySerial.seriport.displayText)
+            dosya.write('\n')
+            dosya.write(self.mySerial.seriport.A_message[0])
+            dosya.write(self.mySerial.seriport.A_message[1])
+            dosya.write('\n')
+            dosya.write("Dosya Adı:")
+            dosya.write(self.graphName)
+            dosya.write('\n')
+            dosya.write("Dosya Konumu:")
+            dosya.write(os.path.abspath(self.graphName))
+            dosya.write('\n')
+            dosya.write("Mod:")
+            dosya.write(self.comboBox_4.currentText())
+            dosya.write('\n')
+            dosya.write("Değer:")
+            dosya.write(self.lineEdit_2.text())
+            dosya.write('\n')
+            dosya.write("Grafik:")
+            dosya.write(self.mySerial.seriport.txt_graph)
+            dosya.write('\n')
+            dosya.write(" ------------------- END -------------------")
+            dosya.write('\n')
+            dosya.write('\n')
+            dosya.write('\n')
 
 
 

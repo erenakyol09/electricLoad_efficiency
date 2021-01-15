@@ -7,7 +7,6 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from pyqtgraph import PlotWidget
 
 class Ui_ELECTRONICLOAD(object):
     def setupUi(self, ELECTRONICLOAD):
@@ -417,7 +416,7 @@ class Ui_ELECTRONICLOAD(object):
         self.pushButton_20.setStyleSheet("background-color: rgb(112, 181, 200);")
         self.pushButton_20.setObjectName("pushButton_20")
         self.label_28 = QtWidgets.QLabel(self.tab_2)
-        self.label_28.setGeometry(QtCore.QRect(60, 50, 271, 41))
+        self.label_28.setGeometry(QtCore.QRect(110, 50, 231, 41))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -434,7 +433,42 @@ class Ui_ELECTRONICLOAD(object):
         self.lineEdit_7.setText("")
         self.lineEdit_7.setAlignment(QtCore.Qt.AlignCenter)
         self.lineEdit_7.setObjectName("lineEdit_7")
+        self.pushButton_24 = QtWidgets.QPushButton(self.tab_2)
+        self.pushButton_24.setGeometry(QtCore.QRect(890, 50, 101, 51))
+        self.pushButton_24.setStyleSheet("background-color: rgb(112, 181, 200);")
+        self.pushButton_24.setObjectName("pushButton_24")
         self.tab1_load.addTab(self.tab_2, "")
+        self.tab_5 = QtWidgets.QWidget()
+        self.tab_5.setObjectName("tab_5")
+        self.textBrowser_14 = QtWidgets.QTextBrowser(self.tab_5)
+        self.textBrowser_14.setGeometry(QtCore.QRect(10, 40, 1001, 801))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        font.setBold(True)
+        font.setWeight(75)
+        self.textBrowser_14.setFont(font)
+        self.textBrowser_14.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.textBrowser_14.setObjectName("textBrowser_14")
+        self.label_36 = QtWidgets.QLabel(self.tab_5)
+        self.label_36.setGeometry(QtCore.QRect(10, 10, 1001, 21))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_36.setFont(font)
+        self.label_36.setStyleSheet("background-color: rgb(166, 190, 200);")
+        self.label_36.setFrameShape(QtWidgets.QFrame.Box)
+        self.label_36.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_36.setObjectName("label_36")
+        self.pushButton_22 = QtWidgets.QPushButton(self.tab_5)
+        self.pushButton_22.setGeometry(QtCore.QRect(880, 760, 101, 51))
+        self.pushButton_22.setStyleSheet("background-color: rgb(112, 181, 200);")
+        self.pushButton_22.setObjectName("pushButton_22")
+        self.pushButton_23 = QtWidgets.QPushButton(self.tab_5)
+        self.pushButton_23.setGeometry(QtCore.QRect(770, 760, 101, 51))
+        self.pushButton_23.setStyleSheet("background-color: rgb(112, 181, 200);")
+        self.pushButton_23.setObjectName("pushButton_23")
+        self.tab1_load.addTab(self.tab_5, "")
         self.label_19 = QtWidgets.QLabel(ELECTRONICLOAD)
         self.label_19.setGeometry(QtCore.QRect(1070, 850, 91, 41))
         font = QtGui.QFont()
@@ -608,7 +642,17 @@ class Ui_ELECTRONICLOAD(object):
         self.label_33.setText(_translate("ELECTRONICLOAD", "GRAPHIC COMPARISON MENU"))
         self.pushButton_20.setText(_translate("ELECTRONICLOAD", "ENTER"))
         self.label_28.setText(_translate("ELECTRONICLOAD", "ENTER THE GRAPHIC NAMES:"))
-        self.tab1_load.setTabText(self.tab1_load.indexOf(self.tab_2), _translate("ELECTRONICLOAD", "Graphic Comparison"))
+        self.pushButton_24.setText(_translate("ELECTRONICLOAD", "REFRESH"))
+        self.tab1_load.setTabText(self.tab1_load.indexOf(self.tab_2), _translate("ELECTRONICLOAD", "Graphic Display"))
+        self.textBrowser_14.setHtml(_translate("ELECTRONICLOAD", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:16pt; font-weight:600; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:7.8pt; font-weight:400;\"><br /></p></body></html>"))
+        self.label_36.setText(_translate("ELECTRONICLOAD", "FILE REGISTRATION INFORMATION MENU"))
+        self.pushButton_22.setText(_translate("ELECTRONICLOAD", "REFRESH"))
+        self.pushButton_23.setText(_translate("ELECTRONICLOAD", "SAVE"))
+        self.tab1_load.setTabText(self.tab1_load.indexOf(self.tab_5), _translate("ELECTRONICLOAD", "Record"))
         self.label_19.setText(_translate("ELECTRONICLOAD", "CURRENT"))
 
-
+from pyqtgraph import PlotWidget

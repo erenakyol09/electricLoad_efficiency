@@ -18,6 +18,7 @@ class serialThreadClass(QThread):
     mesaj10 = pyqtSignal(str)
     mesaj11 = pyqtSignal(str)
     mesaj12 = pyqtSignal(str)
+    mesaj13 = pyqtSignal(str)
 
     label = pyqtSignal(str)
 
@@ -59,7 +60,7 @@ class serialThreadClass(QThread):
         self.packetC_P = ""
         self.packetC_U = ""
         self.packetC_J = ""
-        self.packetC_p = ""
+        self.packetC_pf = ""
         self.packetC_f = ""
         self.packetC_V = ""
         self.packetC_I = ""
@@ -73,6 +74,8 @@ class serialThreadClass(QThread):
         self.readHex = ['','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',]
         self.veri    = ['','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',]
 
+        self.seriport.displayText = ""
+        self.seriport.A_message   = ['','','','','','','','','','','','','','','','','','','','','','','','','','','',]
 
 
 
@@ -84,8 +87,8 @@ class serialThreadClass(QThread):
         while self.seriport.a == 1:
 
             dataTime = QDateTime.currentDateTime()
-            displayText = dataTime.toString('dd.MM.yyyy-hh:mm:ss')
-            self.lcd.emit(displayText)
+            self.seriport.displayText  = dataTime.toString('dd.MM.yyyy-hh:mm:ss')
+            self.lcd.emit(self.seriport.displayText )
 
             # POWER GRAPH PLOTTER
             if self.seriport.Command == 'B' and self.seriport.Mode == 'P' and self.seriport.Value != 0:
@@ -121,15 +124,11 @@ class serialThreadClass(QThread):
                 self.seriport.write("CCCCCCCCCCCCCC".encode())
                 time.sleep(self.C_sendTime)  # sine wave frequency is 50 Hz. So, that's bigger than 20 ms
 
-            dataTime = QDateTime.currentDateTime()
-            displayText = dataTime.toString('dd.MM.yyyy-hh:mm:ss')
-            self.lcd.emit(displayText)
-
             while self.seriport.in_waiting:
 
                 dataTime = QDateTime.currentDateTime()
-                displayText = dataTime.toString('dd.MM.yyyy-hh:mm:ss')
-                self.lcd.emit(displayText)
+                self.seriport.displayText  = dataTime.toString('dd.MM.yyyy-hh:mm:ss')
+                self.lcd.emit(self.seriport.displayText )
 
                 index = 0
                 while 1:
@@ -173,7 +172,7 @@ class serialThreadClass(QThread):
                             for k in range(packet_size):
                                 self.packetA = self.packetA + self.veri[i][k + 3]
                         self.mesaj12.emit(str(self.packetA))
-
+                        self.seriport.A_message[i] = str(self.packetA)
                         self.packetA = ""
 
                 ## B  command filter ##
@@ -312,8 +311,8 @@ class serialThreadClass(QThread):
 
                             if self.veri[i][1] == 'p':
                                 for k in range(packet_size - 1):
-                                    self.packetC_p = str(self.packetC_p + self.veri[i][k + 4])
-                            self.mesaj8.emit(str(self.packetC_p))
+                                    self.packetC_pf = str(self.packetC_pf + self.veri[i][k + 4])
+                            self.mesaj8.emit(str(self.packetC_pf))
 
 
                             if self.veri[i][1] == 'f':
@@ -336,7 +335,7 @@ class serialThreadClass(QThread):
                 self.packetC_P = ""
                 self.packetC_U = ""
                 self.packetC_J = ""
-                self.packetC_p = ""
+                self.packetC_pf = ""
                 self.packetC_f = ""
                 self.packetC_V = ""
                 self.packetC_I = ""
