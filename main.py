@@ -395,6 +395,7 @@ class MainClass(QDialog, electronic_load_last_python.Ui_ELECTRONICLOAD):
 
         with open("information.txt","+a",encoding="utf-8") as dosya:
             dosya.write(" ------------------- START -------------------")
+            dosya.write('\n')
             dosya.write("Tarih-Saat:")
             dosya.write(self.mySerial.seriport.displayText)
             dosya.write('\n')
