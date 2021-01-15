@@ -443,7 +443,7 @@ class Ui_ELECTRONICLOAD(object):
         self.textBrowser_14 = QtWidgets.QTextBrowser(self.tab_5)
         self.textBrowser_14.setGeometry(QtCore.QRect(10, 40, 1001, 801))
         font = QtGui.QFont()
-        font.setPointSize(16)
+        font.setPointSize(15)
         font.setBold(True)
         font.setWeight(75)
         self.textBrowser_14.setFont(font)
@@ -647,7 +647,7 @@ class Ui_ELECTRONICLOAD(object):
         self.textBrowser_14.setHtml(_translate("ELECTRONICLOAD", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:16pt; font-weight:600; font-style:normal;\">\n"
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:15pt; font-weight:600; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:7.8pt; font-weight:400;\"><br /></p></body></html>"))
         self.label_36.setText(_translate("ELECTRONICLOAD", "FILE REGISTRATION INFORMATION MENU"))
         self.pushButton_22.setText(_translate("ELECTRONICLOAD", "REFRESH"))
